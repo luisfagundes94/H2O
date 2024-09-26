@@ -91,6 +91,7 @@ private fun HistoryContent(
     waterHistory: List<Water>,
 ) {
     LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.default),
         modifier = modifier,
     ) {
         items(waterHistory) { water ->
