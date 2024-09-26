@@ -11,6 +11,7 @@ sealed interface Result<out T> {
     data object Loading : Result<Nothing>
 }
 
-fun <T> Flow<T>.asResult(): Flow<Result<T>> = map<T, Result<T>> { Result.Success(it) }
-    .onStart { emit(Result.Loading) }
-    .catch { emit(Result.Error(it)) }
+fun <T> Flow<T>.asResult(): Flow<Result<T>> =
+    map<T, Result<T>> { Result.Success(it) }
+        .onStart { emit(Result.Loading) }
+        .catch { emit(Result.Error(it)) }
