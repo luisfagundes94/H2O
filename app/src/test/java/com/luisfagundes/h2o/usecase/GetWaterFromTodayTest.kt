@@ -5,6 +5,7 @@ import com.luisfagundes.h2o.core.domain.model.Water
 import com.luisfagundes.h2o.core.domain.repository.UserDataRepository
 import com.luisfagundes.h2o.core.domain.repository.WaterRepository
 import com.luisfagundes.h2o.core.domain.usecase.GetWaterFromToday
+import com.luisfagundes.h2o.core.domain.usecase.GetWaterFromTodayImpl
 import com.luisfagundes.h2o.model.fakeUserData
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -22,7 +23,7 @@ class GetWaterFromTodayTest {
 
     @Before
     fun setUp() {
-        getWaterFromToday = GetWaterFromToday(waterRepository, userDataRepository)
+        getWaterFromToday = GetWaterFromTodayImpl(waterRepository, userDataRepository)
     }
 
     @Test

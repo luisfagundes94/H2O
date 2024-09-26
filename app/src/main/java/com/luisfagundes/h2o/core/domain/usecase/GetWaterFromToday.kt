@@ -8,11 +8,15 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import javax.inject.Inject
 
-class GetWaterFromToday @Inject constructor(
+interface GetWaterFromToday {
+    operator fun invoke(): Flow<Water>
+}
+
+class GetWaterFromTodayImpl @Inject constructor(
     private val waterRepository: WaterRepository,
     private val userDataRepository: UserDataRepository,
-) {
-    operator fun invoke(): Flow<Water> {
+): GetWaterFromToday {
+    override operator fun invoke(): Flow<Water> {
         return combine(
             waterRepository.getWaterFrom(getCurrentDate()),
             userDataRepository.userData,

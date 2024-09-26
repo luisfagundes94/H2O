@@ -2,41 +2,33 @@ package com.luisfagundes.h2o.features.water
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.luisfagundes.h2o.core.common.result.Result
 import com.luisfagundes.h2o.core.domain.model.Water
 import com.luisfagundes.h2o.core.domain.usecase.GetWaterFromToday
 import com.luisfagundes.h2o.core.domain.usecase.UpdateWater
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class WaterViewModel @Inject constructor(
-    private val getWaterFromToday: GetWaterFromToday,
+    getWaterFromToday: GetWaterFromToday,
     private val updateWater: UpdateWater,
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow<WaterUiState>(WaterUiState.Loading)
-    val uiState = _uiState.asStateFlow()
+    val uiState: StateFlow<WaterUiState> = getWaterFromToday.invoke().map { data ->
+        WaterUiState.Success(data)
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = WaterUiState.Loading,
+    )
 
-    fun getWater() =
-        viewModelScope.launch {
-            getWaterFromToday().collect { water ->
-                _uiState.update { WaterUiState.Success(water) }
-            }
-        }
-
-    fun updateWaterConsumed(water: Water) =
-        viewModelScope.launch {
-            val result = updateWater(water)
-            if (result is Result.Success) {
-                _uiState.update { WaterUiState.Success(water) }
-            } else {
-                _uiState.update { WaterUiState.Empty }
-            }
-        }
+    fun updateWaterConsumed(water: Water) = viewModelScope.launch {
+        updateWater(water)
+    }
 }
 
 sealed interface WaterUiState {

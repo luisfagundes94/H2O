@@ -39,8 +39,8 @@ class HistoryViewModelTest {
 
         getWaterHistory.emitWaterHistory(fakeWaterHistory)
 
-        val item = viewModel.uiState.value
-        assertEquals(HistoryUiState.Success(fakeWaterHistory), item)
+        val state = viewModel.uiState.value
+        assertEquals(HistoryUiState.Success(fakeWaterHistory), state)
     }
 
     @Test
@@ -49,7 +49,7 @@ class HistoryViewModelTest {
 
         getWaterHistory.emitWaterHistory(emptyList())
 
-        val item = viewModel.uiState.value
-        assertEquals(HistoryUiState.Success(emptyList()), item)
+        val state = viewModel.uiState.value
+        assertEquals(HistoryUiState.Success(emptyList()), state)
     }
 }

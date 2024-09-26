@@ -62,10 +62,6 @@ fun WaterRoute(
         onAddWater = viewModel::updateWaterConsumed,
         onRemoveWater = viewModel::updateWaterConsumed,
     )
-
-    LaunchedEffect(Unit) {
-        viewModel.getWater()
-    }
 }
 
 @Composable
