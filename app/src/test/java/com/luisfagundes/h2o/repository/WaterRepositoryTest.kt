@@ -18,7 +18,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-class WaterRepositoryImplTest {
+class WaterRepositoryTest {
     private val dao: WaterDao = mockk()
     private val repository = WaterRepositoryImpl(dao)
 
