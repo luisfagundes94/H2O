@@ -17,7 +17,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class WaterViewModelTest {
-
     @get:Rule
     val dispatcher = MainDispatcherRule()
 
@@ -27,42 +26,46 @@ class WaterViewModelTest {
 
     @Before
     fun setUp() {
-        viewModel = WaterViewModel(
-            getWaterFromToday,
-            updateWater
-        )
+        viewModel =
+            WaterViewModel(
+                getWaterFromToday,
+                updateWater,
+            )
     }
 
     @Test
-    fun getWater_updatesUiStateWithSuccess() = runTest {
-        val water = Water.empty()
-        coEvery { getWaterFromToday() } returns flowOf(water)
+    fun getWater_updatesUiStateWithSuccess() =
+        runTest {
+            val water = Water.empty()
+            coEvery { getWaterFromToday() } returns flowOf(water)
 
-        viewModel.getWater()
+            viewModel.getWater()
 
-        coVerify(exactly = 1) { getWaterFromToday() }
-        assert(viewModel.uiState.value is WaterUiState.Success)
-    }
-
-    @Test
-    fun updateWaterConsumed_updatesUiStateWithSuccess() = runTest {
-        val water = Water.empty()
-        coEvery { updateWater(water) } returns Result.Success(Unit)
-
-        viewModel.updateWaterConsumed(water)
-
-        coVerify(exactly = 1) { updateWater(water) }
-        assert(viewModel.uiState.value is WaterUiState.Success)
-    }
+            coVerify(exactly = 1) { getWaterFromToday() }
+            assert(viewModel.uiState.value is WaterUiState.Success)
+        }
 
     @Test
-    fun updateWaterConsumed_doesNotUpdateUiStateOnFailure() = runTest {
-        val water = Water.empty()
-        coEvery { updateWater(water) } returns Result.Error(Throwable())
+    fun updateWaterConsumed_updatesUiStateWithSuccess() =
+        runTest {
+            val water = Water.empty()
+            coEvery { updateWater(water) } returns Result.Success(Unit)
 
-        viewModel.updateWaterConsumed(water)
+            viewModel.updateWaterConsumed(water)
 
-        coVerify(exactly = 1) { updateWater(water) }
-        assert(viewModel.uiState.value is WaterUiState.Empty)
-    }
+            coVerify(exactly = 1) { updateWater(water) }
+            assert(viewModel.uiState.value is WaterUiState.Success)
+        }
+
+    @Test
+    fun updateWaterConsumed_doesNotUpdateUiStateOnFailure() =
+        runTest {
+            val water = Water.empty()
+            coEvery { updateWater(water) } returns Result.Error(Throwable())
+
+            viewModel.updateWaterConsumed(water)
+
+            coVerify(exactly = 1) { updateWater(water) }
+            assert(viewModel.uiState.value is WaterUiState.Empty)
+        }
 }

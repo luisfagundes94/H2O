@@ -20,8 +20,9 @@ protobufPlugin = "0.9.4"
 room = "2.6.1"
 lottie = "6.5.2"
 mockk = "1.13.11"
-kotlinxCoroutines = "1.8.0"
+kotlinxCoroutines = "1.9.0"
 turbine = "1.1.0"
+ktlint = "12.1.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -67,4 +68,5 @@ protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 

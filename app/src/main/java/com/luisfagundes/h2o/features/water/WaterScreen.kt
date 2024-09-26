@@ -43,8 +43,8 @@ import com.luisfagundes.h2o.R
 import com.luisfagundes.h2o.core.designsystem.components.FloatingButton
 import com.luisfagundes.h2o.core.designsystem.components.TopBarNavButton
 import com.luisfagundes.h2o.core.domain.model.Water
-import com.luisfagundes.h2o.core.ui.theme.waterColor
 import com.luisfagundes.h2o.core.ui.theme.spacing
+import com.luisfagundes.h2o.core.ui.theme.waterColor
 import com.neo.wave.WaveSpeed
 import com.neo.wave.WaveView
 
@@ -62,7 +62,7 @@ fun WaterRoute(
         onNavigateToHistory = onNavigateToHistory,
         onNavigateToSettings = onNavigateToSettings,
         onAddWater = viewModel::updateWaterConsumed,
-        onRemoveWater = viewModel::updateWaterConsumed
+        onRemoveWater = viewModel::updateWaterConsumed,
     )
 
     LaunchedEffect(Unit) {
@@ -81,19 +81,20 @@ private fun WaterScreen(
 ) {
     Box(
         modifier = modifier,
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         when (uiState) {
             is WaterUiState.Loading -> CircularProgressIndicator()
             is WaterUiState.Empty -> Unit
-            is WaterUiState.Success -> WaterContent(
-                modifier = Modifier.fillMaxSize(),
-                water = uiState.water,
-                onAddWater = onAddWater,
-                onRemoveWater = onRemoveWater,
-                onNavigateToHistory = onNavigateToHistory,
-                onNavigateToSettings = onNavigateToSettings
-            )
+            is WaterUiState.Success ->
+                WaterContent(
+                    modifier = Modifier.fillMaxSize(),
+                    water = uiState.water,
+                    onAddWater = onAddWater,
+                    onRemoveWater = onRemoveWater,
+                    onNavigateToHistory = onNavigateToHistory,
+                    onNavigateToSettings = onNavigateToSettings,
+                )
         }
     }
 }
@@ -111,11 +112,12 @@ private fun WaterContent(
     val targetProgress = water.consumed / water.goal
     val animatedProgress by animateFloatAsState(
         targetValue = targetProgress,
-        animationSpec = tween(
-            durationMillis = 500,
-            easing = LinearEasing
-        ),
-        label = "waterProgress"
+        animationSpec =
+            tween(
+                durationMillis = 500,
+                easing = LinearEasing,
+            ),
+        label = "waterProgress",
     )
     val extra = 100f
 
@@ -128,20 +130,20 @@ private fun WaterContent(
                 actions = {
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
-                        modifier = Modifier.padding(end = 16.dp)
+                        modifier = Modifier.padding(end = 16.dp),
                     ) {
                         TopBarNavButton(
                             imageVector = Icons.Default.History,
                             contentDescription = stringResource(R.string.history_content_description),
-                            onClick = onNavigateToHistory
+                            onClick = onNavigateToHistory,
                         )
                         TopBarNavButton(
                             imageVector = Icons.Default.Settings,
                             contentDescription = stringResource(R.string.settings_content_description),
-                            onClick = onNavigateToSettings
+                            onClick = onNavigateToSettings,
                         )
                     }
-                }
+                },
             )
         },
         floatingActionButton = {
@@ -149,21 +151,21 @@ private fun WaterContent(
                 FloatingButton(
                     onClick = { onAddWater(water.copy(consumed = water.consumed + extra)) },
                     imageVector = Icons.Default.Add,
-                    imageDescription = stringResource(R.string.add_water_content_description)
+                    imageDescription = stringResource(R.string.add_water_content_description),
                 )
                 Spacer(Modifier.width(MaterialTheme.spacing.default))
                 FloatingButton(
                     onClick = { onRemoveWater(water.copy(consumed = water.consumed - extra)) },
                     imageVector = Icons.Default.Remove,
-                    imageDescription = stringResource(R.string.remove_water_content_description)
+                    imageDescription = stringResource(R.string.remove_water_content_description),
                 )
             }
         },
-        floatingActionButtonPosition = FabPosition.Center
+        floatingActionButtonPosition = FabPosition.Center,
     ) { paddingValues ->
         Box(
             modifier = modifier.padding(paddingValues),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             WaveView(
                 modifier = Modifier.fillMaxSize(),
@@ -173,19 +175,25 @@ private fun WaterContent(
                 progress = animatedProgress,
                 dragEnabled = false,
                 isDebugMode = false,
-                onProgressUpdated = { /* No-op */ }
+                onProgressUpdated = { /* No-op */ },
             )
             Text(
                 text = "${(animatedProgress * 100).toInt()}%",
                 fontWeight = FontWeight.Bold,
-                style = TextStyle(
-                    fontSize = 60.sp,
-                    shadow = if (isSystemInDarkTheme()) Shadow(
-                        color = Color.Black.copy(alpha = 0.5f),
-                        offset = Offset(2f, 2f),
-                        blurRadius = 4f
-                    ) else null
-                )
+                style =
+                    TextStyle(
+                        fontSize = 60.sp,
+                        shadow =
+                            if (isSystemInDarkTheme()) {
+                                Shadow(
+                                    color = Color.Black.copy(alpha = 0.5f),
+                                    offset = Offset(2f, 2f),
+                                    blurRadius = 4f,
+                                )
+                            } else {
+                                null
+                            },
+                    ),
             )
         }
     }

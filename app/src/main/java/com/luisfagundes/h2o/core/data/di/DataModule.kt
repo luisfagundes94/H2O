@@ -21,11 +21,12 @@ object DataModule {
 
     @Provides
     fun provideH2oDatabase(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
     ): H2oDatabase {
         return Room.databaseBuilder(
             context,
-            H2oDatabase::class.java, DATABASE_NAME
+            H2oDatabase::class.java,
+            DATABASE_NAME,
         ).build()
     }
 }

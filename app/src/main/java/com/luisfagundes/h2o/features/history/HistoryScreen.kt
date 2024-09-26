@@ -39,7 +39,7 @@ fun HistoryRoute(
     HistoryScreen(
         modifier = Modifier.fillMaxSize(),
         uiState = uiState,
-        onBackPressed = onBackPressed
+        onBackPressed = onBackPressed,
     )
 }
 
@@ -58,44 +58,45 @@ private fun HistoryScreen(
                     IconButton(onClick = onBackPressed) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(R.string.water_history)
+                            contentDescription = stringResource(R.string.water_history),
                         )
                     }
-                }
+                },
             )
-        }
+        },
     ) { contentPadding ->
         Box(
             modifier = modifier.padding(contentPadding),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             when (uiState) {
                 is HistoryUiState.Loading -> CircularProgressIndicator()
                 is HistoryUiState.Error -> Unit
-                is HistoryUiState.Success -> HistoryContent(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(MaterialTheme.spacing.default),
-                    uiState.waterHistory
-                )
+                is HistoryUiState.Success ->
+                    HistoryContent(
+                        modifier =
+                            Modifier
+                                .fillMaxSize()
+                                .padding(MaterialTheme.spacing.default),
+                        uiState.waterHistory,
+                    )
             }
         }
     }
-
 }
 
 @Composable
 private fun HistoryContent(
     modifier: Modifier,
-    waterHistory: List<Water>
+    waterHistory: List<Water>,
 ) {
     LazyColumn(
-        modifier = modifier
+        modifier = modifier,
     ) {
         items(waterHistory) { water ->
             HistoryItem(
                 modifier = Modifier.padding(MaterialTheme.spacing.default),
-                water = water
+                water = water,
             )
         }
     }
@@ -104,13 +105,13 @@ private fun HistoryContent(
 @Composable
 private fun HistoryItem(
     modifier: Modifier,
-    water: Water
+    water: Water,
 ) {
     Card {
         Row(
             modifier = modifier,
             horizontalArrangement = Arrangement.Start,
-            verticalAlignment = Alignment.Top
+            verticalAlignment = Alignment.Top,
         ) {
             Text(water.date.split("-").reversed().joinToString("/"))
             Spacer(modifier = Modifier.weight(1f))

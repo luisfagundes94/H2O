@@ -1,6 +1,5 @@
 package com.luisfagundes.h2o.core.common.di
 
-
 import com.luisfagundes.h2o.core.common.dispatcher.Dispatcher
 import com.luisfagundes.h2o.core.common.dispatcher.H2oDispatchers
 import dagger.Module

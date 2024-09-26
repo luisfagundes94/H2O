@@ -14,32 +14,37 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class WaterViewModel @Inject constructor(
-    private val getWaterFromToday: GetWaterFromToday,
-    private val updateWater: UpdateWater
-) : ViewModel() {
+class WaterViewModel
+    @Inject
+    constructor(
+        private val getWaterFromToday: GetWaterFromToday,
+        private val updateWater: UpdateWater,
+    ) : ViewModel() {
+        private val _uiState = MutableStateFlow<WaterUiState>(WaterUiState.Loading)
+        val uiState = _uiState.asStateFlow()
 
-    private val _uiState = MutableStateFlow<WaterUiState>(WaterUiState.Loading)
-    val uiState = _uiState.asStateFlow()
+        fun getWater() =
+            viewModelScope.launch {
+                getWaterFromToday().collect { water ->
+                    _uiState.update { WaterUiState.Success(water) }
+                }
+            }
 
-    fun getWater() = viewModelScope.launch {
-        getWaterFromToday().collect { water ->
-            _uiState.update { WaterUiState.Success(water) }
-        }
+        fun updateWaterConsumed(water: Water) =
+            viewModelScope.launch {
+                val result = updateWater(water)
+                if (result is Result.Success) {
+                    _uiState.update { WaterUiState.Success(water) }
+                } else {
+                    _uiState.update { WaterUiState.Empty }
+                }
+            }
     }
-
-    fun updateWaterConsumed(water: Water) = viewModelScope.launch {
-        val result = updateWater(water)
-        if (result is Result.Success) {
-            _uiState.update { WaterUiState.Success(water) }
-        } else {
-            _uiState.update { WaterUiState.Empty }
-        }
-    }
-}
 
 sealed interface WaterUiState {
     data object Loading : WaterUiState
+
     data object Empty : WaterUiState
+
     data class Success(val water: Water) : WaterUiState
 }

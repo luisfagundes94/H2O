@@ -9,7 +9,7 @@ object WaterMapper {
             id = id,
             date = date,
             consumed = consumed,
-            goal = total
+            goal = total,
         )
     }
 
@@ -18,7 +18,7 @@ object WaterMapper {
             id = id,
             date = date,
             consumed = consumed,
-            total = goal
+            total = goal,
         )
     }
 }

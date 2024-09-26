@@ -46,13 +46,14 @@ fun SettingsRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     SettingsScreen(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(MaterialTheme.spacing.default),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(MaterialTheme.spacing.default),
         uiState = uiState,
         onBackPressed = onBackPressed,
         onGoalOfTheDayClick = {},
-        onNotificationCheckedChange = viewModel::updateNotificationToggle
+        onNotificationCheckedChange = viewModel::updateNotificationToggle,
     )
 
     LaunchedEffect(Unit) {
@@ -77,29 +78,29 @@ private fun SettingsScreen(
                     IconButton(onClick = onBackPressed) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(R.string.back)
+                            contentDescription = stringResource(R.string.back),
                         )
                     }
-                }
+                },
             )
-        }
+        },
     ) { contentPadding ->
         Box(
             modifier = modifier.padding(contentPadding),
         ) {
             when (uiState) {
                 is SettingsUiState.Loading -> Unit
-                is SettingsUiState.Success -> SettingsContent(
-                    modifier = Modifier,
-                    userData = uiState.userData,
-                    onGoalOfTheDayClick = onGoalOfTheDayClick,
-                    notificationChecked = uiState.userData.notificationEnabled,
-                    onNotificationCheckedChange = onNotificationCheckedChange
-                )
+                is SettingsUiState.Success ->
+                    SettingsContent(
+                        modifier = Modifier,
+                        userData = uiState.userData,
+                        onGoalOfTheDayClick = onGoalOfTheDayClick,
+                        notificationChecked = uiState.userData.notificationEnabled,
+                        onNotificationCheckedChange = onNotificationCheckedChange,
+                    )
             }
         }
     }
-
 }
 
 @Composable
@@ -111,30 +112,30 @@ private fun SettingsContent(
     onNotificationCheckedChange: (Boolean) -> Unit,
 ) {
     Column(
-        modifier = modifier
+        modifier = modifier,
     ) {
         AppSection()
         HorizontalDivider(
-            modifier = Modifier.padding(vertical = MaterialTheme.spacing.default)
+            modifier = Modifier.padding(vertical = MaterialTheme.spacing.default),
         )
         GeneralSection(
             goalOfTheDay = userData.waterGoal,
-            onGoalOfTheDayClick = onGoalOfTheDayClick
+            onGoalOfTheDayClick = onGoalOfTheDayClick,
         )
         HorizontalDivider(
-            modifier = Modifier.padding(vertical = MaterialTheme.spacing.default)
+            modifier = Modifier.padding(vertical = MaterialTheme.spacing.default),
         )
         AppSettingsSection(
             notificationChecked = notificationChecked,
-            onNotificationCheckedChange = onNotificationCheckedChange
+            onNotificationCheckedChange = onNotificationCheckedChange,
         )
         HorizontalDivider(
-            modifier = Modifier.padding(vertical = MaterialTheme.spacing.default)
+            modifier = Modifier.padding(vertical = MaterialTheme.spacing.default),
         )
         Text(
-            modifier = Modifier.clickable {  },
+            modifier = Modifier.clickable { },
             text = stringResource(R.string.share_app),
-            color = MaterialTheme.colorScheme.primary
+            color = MaterialTheme.colorScheme.primary,
         )
     }
 }
@@ -145,7 +146,7 @@ private fun AppSection() {
     val versionName = "v${context.getAppVersion()}"
 
     Row(
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             modifier = Modifier.size(50.dp),
@@ -157,7 +158,7 @@ private fun AppSection() {
             Text(
                 text = stringResource(R.string.app_name),
                 style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
             )
             Text(
                 text = versionName,
@@ -178,7 +179,7 @@ private fun GeneralSection(
         Text(
             text = stringResource(R.string.general_section_title),
             style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
         )
         Spacer(Modifier.height(MaterialTheme.spacing.default))
         Row {
@@ -205,27 +206,27 @@ private fun AppSettingsSection(
         Text(
             text = stringResource(R.string.app_settings),
             style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
         )
         Spacer(Modifier.height(MaterialTheme.spacing.default))
         Row(
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(stringResource(R.string.notification))
             Spacer(Modifier.weight(1f))
             Switch(
                 checked = notificationChecked,
-                onCheckedChange = onNotificationCheckedChange
+                onCheckedChange = onNotificationCheckedChange,
             )
         }
         Spacer(Modifier.height(MaterialTheme.spacing.default))
         Row(
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(stringResource(R.string.time_reminder))
             Spacer(Modifier.weight(1f))
             Text(
-                modifier = Modifier.clickable {  },
+                modifier = Modifier.clickable { },
                 text = "Every 3 hours",
                 color = MaterialTheme.colorScheme.primary,
             )

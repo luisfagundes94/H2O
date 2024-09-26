@@ -15,7 +15,6 @@ import org.junit.Before
 import org.junit.Test
 
 class UserDataRepositoryTest {
-
     private val preferencesDataSource = mockk<H2oPreferencesDataSource>()
     private lateinit var userDataRepository: UserDataRepository
 
@@ -25,62 +24,68 @@ class UserDataRepositoryTest {
     }
 
     @Test
-    fun userData_returnsFlowOfUserData() = runTest {
-        val expectedUserData = fakeUserData
-        coEvery { preferencesDataSource.userData } returns flowOf(expectedUserData)
+    fun userData_returnsFlowOfUserData() =
+        runTest {
+            val expectedUserData = fakeUserData
+            coEvery { preferencesDataSource.userData } returns flowOf(expectedUserData)
 
-        val result = userDataRepository.userData.first()
+            val result = userDataRepository.userData.first()
 
-        assert(result == expectedUserData)
-    }
-
-    @Test
-    fun setDarkModePreference_callsPreferencesDataSource() = runTest {
-        val darkThemeConfig = DarkThemeConfig.DARK
-        coEvery { preferencesDataSource.setDarkThemeConfig(darkThemeConfig) } returns Unit
-
-        userDataRepository.setDarkModePreference(darkThemeConfig)
-
-        coVerify { preferencesDataSource.setDarkThemeConfig(darkThemeConfig) }
-    }
+            assert(result == expectedUserData)
+        }
 
     @Test
-    fun setGoalOfTheDay_callsPreferencesDataSource() = runTest {
-        val goal = 2000f
-        coEvery { preferencesDataSource.setGoalOfTheDay(goal) } returns Unit
+    fun setDarkModePreference_callsPreferencesDataSource() =
+        runTest {
+            val darkThemeConfig = DarkThemeConfig.DARK
+            coEvery { preferencesDataSource.setDarkThemeConfig(darkThemeConfig) } returns Unit
 
-        userDataRepository.setGoalOfTheDay(goal)
+            userDataRepository.setDarkModePreference(darkThemeConfig)
 
-        coVerify { preferencesDataSource.setGoalOfTheDay(goal) }
-    }
-
-    @Test
-    fun setWaterReminderInterval_callsPreferencesDataSource() = runTest {
-        val interval = 2f
-        coEvery { preferencesDataSource.setWaterReminderInterval(interval) } returns Unit
-
-        userDataRepository.setWaterReminderInterval(interval)
-
-        coVerify { preferencesDataSource.setWaterReminderInterval(interval) }
-    }
+            coVerify { preferencesDataSource.setDarkThemeConfig(darkThemeConfig) }
+        }
 
     @Test
-    fun setDynamicColorPreference_callsPreferencesDataSource() = runTest {
-        val useDynamicColor = true
-        coEvery { preferencesDataSource.setDynamicColorPreference(useDynamicColor) } returns Unit
+    fun setGoalOfTheDay_callsPreferencesDataSource() =
+        runTest {
+            val goal = 2000f
+            coEvery { preferencesDataSource.setGoalOfTheDay(goal) } returns Unit
 
-        userDataRepository.setDynamicColorPreference(useDynamicColor)
+            userDataRepository.setGoalOfTheDay(goal)
 
-        coVerify { preferencesDataSource.setDynamicColorPreference(useDynamicColor) }
-    }
+            coVerify { preferencesDataSource.setGoalOfTheDay(goal) }
+        }
 
     @Test
-    fun setNotificationEnabled_callsPreferencesDataSource() = runTest {
-        val enabled = true
-        coEvery { preferencesDataSource.setNotificationEnabled(enabled) } returns Unit
+    fun setWaterReminderInterval_callsPreferencesDataSource() =
+        runTest {
+            val interval = 2f
+            coEvery { preferencesDataSource.setWaterReminderInterval(interval) } returns Unit
 
-        userDataRepository.setNotificationEnabled(enabled)
+            userDataRepository.setWaterReminderInterval(interval)
 
-        coVerify { preferencesDataSource.setNotificationEnabled(enabled) }
-    }
+            coVerify { preferencesDataSource.setWaterReminderInterval(interval) }
+        }
+
+    @Test
+    fun setDynamicColorPreference_callsPreferencesDataSource() =
+        runTest {
+            val useDynamicColor = true
+            coEvery { preferencesDataSource.setDynamicColorPreference(useDynamicColor) } returns Unit
+
+            userDataRepository.setDynamicColorPreference(useDynamicColor)
+
+            coVerify { preferencesDataSource.setDynamicColorPreference(useDynamicColor) }
+        }
+
+    @Test
+    fun setNotificationEnabled_callsPreferencesDataSource() =
+        runTest {
+            val enabled = true
+            coEvery { preferencesDataSource.setNotificationEnabled(enabled) } returns Unit
+
+            userDataRepository.setNotificationEnabled(enabled)
+
+            coVerify { preferencesDataSource.setNotificationEnabled(enabled) }
+        }
 }

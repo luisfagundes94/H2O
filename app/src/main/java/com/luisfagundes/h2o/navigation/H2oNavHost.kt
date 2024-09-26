@@ -10,9 +10,7 @@ import com.luisfagundes.h2o.features.settings.SettingsRoute
 import com.luisfagundes.h2o.features.water.WaterRoute
 
 @Composable
-fun H2oNavHost(
-    modifier: Modifier = Modifier,
-) {
+fun H2oNavHost(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
 
     NavHost(

@@ -6,8 +6,12 @@ import kotlinx.coroutines.flow.Flow
 
 interface WaterRepository {
     fun getWaterFrom(date: String): Flow<Water?>
+
     fun getWaterHistory(): Flow<List<Water>?>
+
     suspend fun addWater(water: Water)
+
     suspend fun updateWater(water: Water): Result<Unit>
+
     suspend fun deleteWater(water: Water)
 }

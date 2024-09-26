@@ -10,11 +10,12 @@ data class Water(
     val goal: Float,
 ) {
     companion object {
-        fun empty() = Water(
-            id = 0,
-            date = "",
-            consumed = 0f,
-            goal = 0f,
-        )
+        fun empty() =
+            Water(
+                id = 0,
+                date = "",
+                consumed = 0f,
+                goal = 0f,
+            )
     }
 }

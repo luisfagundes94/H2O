@@ -13,12 +13,12 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 @Composable
 fun LottieAnimationLoader(
     modifier: Modifier = Modifier,
-    animId: Int
+    animId: Int,
 ) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(animId))
     val progress by animateLottieCompositionAsState(
         composition = composition,
-        iterations = LottieConstants.IterateForever
+        iterations = LottieConstants.IterateForever,
     )
     LottieAnimation(
         modifier = modifier,

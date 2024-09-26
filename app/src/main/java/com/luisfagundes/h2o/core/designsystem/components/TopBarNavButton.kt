@@ -9,14 +9,14 @@ import androidx.compose.ui.graphics.vector.ImageVector
 fun TopBarNavButton(
     imageVector: ImageVector,
     contentDescription: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     IconButton(
-        onClick = onClick
+        onClick = onClick,
     ) {
         Icon(
             imageVector = imageVector,
-            contentDescription = contentDescription
+            contentDescription = contentDescription,
         )
     }
 }

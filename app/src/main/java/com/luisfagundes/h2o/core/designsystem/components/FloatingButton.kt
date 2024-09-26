@@ -21,7 +21,7 @@ fun FloatingButton(
     ) {
         Icon(
             imageVector = imageVector,
-            contentDescription = imageDescription
+            contentDescription = imageDescription,
         )
     }
 }
