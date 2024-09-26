@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">H2O</string>
+    <string name="empty_water_msg">Ops, parece que você ainda não bebeu água hoje! Clique no botão abaixo para adicionar um copo.</string>
+    <string name="add_water_content_description">add cup of water</string>
+    <string name="remove_water_content_description">remove water</string>
+    <string name="history_content_description">water history</string>
+    <string name="settings_content_description">app settings</string>
+    <string name="history">History</string>
+    <string name="water_history">water history</string>
+    <string name="general_section_title">GENERAL</string>
+    <string name="app_icon">App icon</string>
+    <string name="settings">Settings</string>
+    <string name="back">go back</string>
+    <string name="app_settings">APP SETTINGS</string>
+    <string name="notification">Notification</string>
+    <string name="share_app">Share app</string>
+    <string name="time_reminder">Set time reminder</string>
+</resources>
