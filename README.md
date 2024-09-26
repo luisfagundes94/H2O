@@ -17,9 +17,9 @@ Features:
 
 ### Light Mode
 <p float="left">
-  <img src="https://github.com/luisfagundes94/H2O/blob/main/screenshots/screenshot1.png" width="200" /> 
-  <img src="https://github.com/luisfagundes94/h2o/blob/main/screenshots/screenshot2.png" width="200" />
-  <img src="https://github.com/luisfagundes94/h2o/blob/main/screenshots/screenshot3.png" width="200" />
+  <img src="https://github.com/luisfagundes94/H2O/blob/main/screenshots/screenshot4.png" width="200" /> 
+  <img src="https://github.com/luisfagundes94/h2o/blob/main/screenshots/screenshot5.png" width="200" />
+  <img src="https://github.com/luisfagundes94/h2o/blob/main/screenshots/screenshot6.png" width="200" />
 </p>
 
 ## Architecture
