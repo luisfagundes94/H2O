@@ -31,10 +31,7 @@ import com.luisfagundes.h2o.core.domain.model.Water
 import com.luisfagundes.h2o.core.ui.theme.spacing
 
 @Composable
-fun HistoryRoute(
-    viewModel: HistoryViewModel = hiltViewModel(),
-    onBackPressed: () -> Unit
-) {
+fun HistoryRoute(viewModel: HistoryViewModel = hiltViewModel(), onBackPressed: () -> Unit) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     HistoryScreen(
@@ -82,10 +79,7 @@ private fun HistoryScreen(modifier: Modifier, uiState: HistoryUiState, onBackPre
 }
 
 @Composable
-private fun HistoryContent(
-    modifier: Modifier,
-    waterHistory: List<Water>
-) {
+private fun HistoryContent(modifier: Modifier, waterHistory: List<Water>) {
     if (waterHistory.isEmpty()) {
         Text(stringResource(R.string.empty_water_history))
         return
