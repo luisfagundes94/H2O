@@ -15,21 +15,21 @@ fun H2oNavHost(modifier: Modifier = Modifier) {
 
     NavHost(
         navController = navController,
-        startDestination = Water,
+        startDestination = Routes.Water,
         modifier = modifier,
     ) {
-        composable<Water> {
+        composable<Routes.Water> {
             WaterRoute(
-                onNavigateToHistory = { navController.navigate(History) },
-                onNavigateToSettings = { navController.navigate(Settings) },
+                onNavigateToHistory = { navController.navigate(Routes.History) },
+                onNavigateToSettings = { navController.navigate(Routes.Settings) },
             )
         }
-        composable<Settings> {
+        composable<Routes.Settings> {
             SettingsRoute(
                 onBackPressed = navController::popBackStack,
             )
         }
-        composable<History> {
+        composable<Routes.History> {
             HistoryRoute(
                 onBackPressed = navController::popBackStack,
             )
