@@ -11,7 +11,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class UpdateWaterImplTest {
+class UpdateWaterTest {
 
     private val repository = mockk<WaterRepository>()
     private val updateWater = UpdateWaterImpl(repository)
