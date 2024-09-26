@@ -132,6 +132,7 @@ private fun SettingsContent(
             modifier = Modifier.padding(vertical = MaterialTheme.spacing.default)
         )
         Text(
+            modifier = Modifier.clickable {  },
             text = stringResource(R.string.share_app),
             color = MaterialTheme.colorScheme.primary
         )
