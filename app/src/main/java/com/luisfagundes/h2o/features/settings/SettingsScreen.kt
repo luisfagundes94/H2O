@@ -26,7 +26,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,8 +39,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.chargemap.compose.numberpicker.ListItemPicker
-import com.chargemap.compose.numberpicker.NumberPicker
 import com.luisfagundes.h2o.R
 import com.luisfagundes.h2o.core.common.extensions.getAppVersion
 import com.luisfagundes.h2o.core.designsystem.components.GoalPicker
@@ -72,7 +69,7 @@ private fun SettingsScreen(
     modifier: Modifier,
     uiState: SettingsUiState,
     onBackPressed: () -> Unit,
-    onUpdateGoalOfTheDay: (Float) -> Unit = {},
+    onUpdateGoalOfTheDay: (Float) -> Unit = {}
 ) {
     Scaffold(
         topBar = {
@@ -113,7 +110,7 @@ private fun SettingsContent(
     userData: UserData,
     onUpdateGoalOfTheDay: (Float) -> Unit,
     notificationChecked: Boolean,
-    onNotificationCheckedChange: (Boolean) -> Unit,
+    onNotificationCheckedChange: (Boolean) -> Unit
 ) {
     var showGoalPicker by remember { mutableStateOf(false) }
 

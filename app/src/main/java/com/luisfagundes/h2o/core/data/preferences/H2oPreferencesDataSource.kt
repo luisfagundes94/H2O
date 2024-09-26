@@ -19,18 +19,18 @@ class H2oPreferencesDataSource @Inject constructor(
     }
 
     val userData = userPreferences.data.map { data ->
-            UserData(
-                darkThemeConfig = when (data.darkThemeConfig) {
-                    DarkThemeConfigProto.DARK_THEME_CONFIG_LIGHT -> DarkThemeConfig.LIGHT
-                    DarkThemeConfigProto.DARK_THEME_CONFIG_DARK -> DarkThemeConfig.DARK
-                    else -> DarkThemeConfig.FOLLOW_SYSTEM
-                },
-                useDynamicColor = data.useDynamicColor,
-                waterGoal = if (data.goalOfTheDay == 0f) DEFAULT_GOAL else data.goalOfTheDay,
-                waterReminderInterval = data.waterReminderInterval,
-                notificationEnabled = data.notificationEnabled
-            )
-        }
+        UserData(
+            darkThemeConfig = when (data.darkThemeConfig) {
+                DarkThemeConfigProto.DARK_THEME_CONFIG_LIGHT -> DarkThemeConfig.LIGHT
+                DarkThemeConfigProto.DARK_THEME_CONFIG_DARK -> DarkThemeConfig.DARK
+                else -> DarkThemeConfig.FOLLOW_SYSTEM
+            },
+            useDynamicColor = data.useDynamicColor,
+            waterGoal = if (data.goalOfTheDay == 0f) DEFAULT_GOAL else data.goalOfTheDay,
+            waterReminderInterval = data.waterReminderInterval,
+            notificationEnabled = data.notificationEnabled
+        )
+    }
 
     suspend fun setDarkThemeConfig(darkThemeConfig: DarkThemeConfig) {
         updatePreferences { it.copy { this.darkThemeConfig = darkThemeConfig.toProto() } }

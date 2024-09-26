@@ -3,7 +3,6 @@ package com.luisfagundes.h2o.core.designsystem.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -12,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.window.Dialog
 import com.chargemap.compose.numberpicker.NumberPicker
 import com.luisfagundes.h2o.core.ui.theme.spacing
 
@@ -23,10 +21,10 @@ fun GoalPicker(
     value: Int,
     unit: String,
     onValueChange: (Int) -> Unit,
-    onDismissRequest: () -> Unit,
+    onDismissRequest: () -> Unit
 ) {
     BasicAlertDialog(
-        onDismissRequest = onDismissRequest,
+        onDismissRequest = onDismissRequest
     ) {
         Column(
             modifier = modifier,
@@ -39,7 +37,7 @@ fun GoalPicker(
             )
             Row(
                 horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.default),
-                verticalAlignment = Alignment.CenterVertically,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 NumberPicker(
                     range = (1000..5000 step 100),

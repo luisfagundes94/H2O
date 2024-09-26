@@ -1,7 +1,6 @@
 package com.luisfagundes.h2o.usecase
 
 import com.luisfagundes.h2o.core.common.utils.getCurrentDate
-import com.luisfagundes.h2o.core.domain.model.Water
 import com.luisfagundes.h2o.core.domain.repository.UserDataRepository
 import com.luisfagundes.h2o.core.domain.repository.WaterRepository
 import com.luisfagundes.h2o.core.domain.usecase.GetWaterFromToday
