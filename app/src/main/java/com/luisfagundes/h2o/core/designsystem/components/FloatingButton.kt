@@ -12,16 +12,16 @@ fun FloatingButton(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
     imageDescription: String,
-    onClick: () -> Unit = {},
+    onClick: () -> Unit = {}
 ) {
     FloatingActionButton(
         modifier = modifier,
         onClick = onClick,
-        shape = RoundedCornerShape(percent = 50),
+        shape = RoundedCornerShape(percent = 50)
     ) {
         Icon(
             imageVector = imageVector,
-            contentDescription = imageDescription,
+            contentDescription = imageDescription
         )
     }
 }

@@ -8,11 +8,11 @@ import com.luisfagundes.h2o.UserPreferences
 import com.luisfagundes.h2o.copy
 import com.luisfagundes.h2o.core.domain.model.DarkThemeConfig
 import com.luisfagundes.h2o.core.domain.model.UserData
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
+import kotlinx.coroutines.flow.map
 
 class H2oPreferencesDataSource @Inject constructor(
-    private val userPreferences: DataStore<UserPreferences>,
+    private val userPreferences: DataStore<UserPreferences>
 ) {
     companion object {
         private const val DEFAULT_GOAL = 2000f
@@ -29,7 +29,7 @@ class H2oPreferencesDataSource @Inject constructor(
                 useDynamicColor = data.useDynamicColor,
                 waterGoal = if (data.goalOfTheDay == 0f) DEFAULT_GOAL else data.goalOfTheDay,
                 waterReminderInterval = data.waterReminderInterval,
-                notificationEnabled = data.notificationEnabled,
+                notificationEnabled = data.notificationEnabled
             )
         }
 

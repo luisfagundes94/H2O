@@ -5,5 +5,5 @@ data class UserData(
     val useDynamicColor: Boolean,
     val waterGoal: Float,
     val waterReminderInterval: Float,
-    val notificationEnabled: Boolean,
+    val notificationEnabled: Boolean
 )

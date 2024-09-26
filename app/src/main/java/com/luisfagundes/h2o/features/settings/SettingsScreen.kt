@@ -39,10 +39,7 @@ import com.luisfagundes.h2o.core.domain.model.UserData
 import com.luisfagundes.h2o.core.ui.theme.spacing
 
 @Composable
-fun SettingsRoute(
-    viewModel: SettingsViewModel = hiltViewModel(),
-    onBackPressed: () -> Unit,
-) {
+fun SettingsRoute(viewModel: SettingsViewModel = hiltViewModel(), onBackPressed: () -> Unit) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     SettingsScreen(
@@ -52,7 +49,7 @@ fun SettingsRoute(
         uiState = uiState,
         onBackPressed = onBackPressed,
         onGoalOfTheDayClick = {},
-        onNotificationCheckedChange = viewModel::updateNotificationToggle,
+        onNotificationCheckedChange = viewModel::updateNotificationToggle
     )
 
     LaunchedEffect(Unit) {
@@ -67,7 +64,7 @@ private fun SettingsScreen(
     uiState: SettingsUiState,
     onBackPressed: () -> Unit,
     onGoalOfTheDayClick: (Float) -> Unit,
-    onNotificationCheckedChange: (Boolean) -> Unit,
+    onNotificationCheckedChange: (Boolean) -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -77,15 +74,15 @@ private fun SettingsScreen(
                     IconButton(onClick = onBackPressed) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(R.string.back),
+                            contentDescription = stringResource(R.string.back)
                         )
                     }
-                },
+                }
             )
-        },
+        }
     ) { contentPadding ->
         Box(
-            modifier = modifier.padding(contentPadding),
+            modifier = modifier.padding(contentPadding)
         ) {
             when (uiState) {
                 is SettingsUiState.Loading -> Unit
@@ -95,7 +92,7 @@ private fun SettingsScreen(
                         userData = uiState.userData,
                         onGoalOfTheDayClick = onGoalOfTheDayClick,
                         notificationChecked = uiState.userData.notificationEnabled,
-                        onNotificationCheckedChange = onNotificationCheckedChange,
+                        onNotificationCheckedChange = onNotificationCheckedChange
                     )
             }
         }
@@ -108,33 +105,33 @@ private fun SettingsContent(
     userData: UserData,
     onGoalOfTheDayClick: (Float) -> Unit,
     notificationChecked: Boolean,
-    onNotificationCheckedChange: (Boolean) -> Unit,
+    onNotificationCheckedChange: (Boolean) -> Unit
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier
     ) {
         AppSection()
         HorizontalDivider(
-            modifier = Modifier.padding(vertical = MaterialTheme.spacing.default),
+            modifier = Modifier.padding(vertical = MaterialTheme.spacing.default)
         )
         GeneralSection(
             goalOfTheDay = userData.waterGoal,
-            onGoalOfTheDayClick = onGoalOfTheDayClick,
+            onGoalOfTheDayClick = onGoalOfTheDayClick
         )
         HorizontalDivider(
-            modifier = Modifier.padding(vertical = MaterialTheme.spacing.default),
+            modifier = Modifier.padding(vertical = MaterialTheme.spacing.default)
         )
         AppSettingsSection(
             notificationChecked = notificationChecked,
-            onNotificationCheckedChange = onNotificationCheckedChange,
+            onNotificationCheckedChange = onNotificationCheckedChange
         )
         HorizontalDivider(
-            modifier = Modifier.padding(vertical = MaterialTheme.spacing.default),
+            modifier = Modifier.padding(vertical = MaterialTheme.spacing.default)
         )
         Text(
             modifier = Modifier.clickable { },
             text = stringResource(R.string.share_app),
-            color = MaterialTheme.colorScheme.primary,
+            color = MaterialTheme.colorScheme.primary
         )
     }
 }
@@ -145,22 +142,22 @@ private fun AppSection() {
     val versionName = "v${context.getAppVersion()}"
 
     Row(
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             modifier = Modifier.size(50.dp),
             imageVector = Icons.Default.Android,
-            contentDescription = stringResource(R.string.app_icon),
+            contentDescription = stringResource(R.string.app_icon)
         )
         Spacer(Modifier.width(MaterialTheme.spacing.default))
         Column {
             Text(
                 text = stringResource(R.string.app_name),
                 style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.Bold
             )
             Text(
-                text = versionName,
+                text = versionName
             )
         }
     }
@@ -170,15 +167,15 @@ private fun AppSection() {
 private fun GeneralSection(
     modifier: Modifier = Modifier,
     goalOfTheDay: Float,
-    onGoalOfTheDayClick: (Float) -> Unit,
+    onGoalOfTheDayClick: (Float) -> Unit
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier
     ) {
         Text(
             text = stringResource(R.string.general_section_title),
             style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.Bold
         )
         Spacer(Modifier.height(MaterialTheme.spacing.default))
         Row {
@@ -187,7 +184,7 @@ private fun GeneralSection(
             Text(
                 modifier = Modifier.clickable { onGoalOfTheDayClick(goalOfTheDay) },
                 text = "${goalOfTheDay.toInt()} ml",
-                color = MaterialTheme.colorScheme.primary,
+                color = MaterialTheme.colorScheme.primary
             )
         }
     }
@@ -197,37 +194,37 @@ private fun GeneralSection(
 private fun AppSettingsSection(
     modifier: Modifier = Modifier,
     notificationChecked: Boolean,
-    onNotificationCheckedChange: (Boolean) -> Unit,
+    onNotificationCheckedChange: (Boolean) -> Unit
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier
     ) {
         Text(
             text = stringResource(R.string.app_settings),
             style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.Bold
         )
         Spacer(Modifier.height(MaterialTheme.spacing.default))
         Row(
-            verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Text(stringResource(R.string.notification))
             Spacer(Modifier.weight(1f))
             Switch(
                 checked = notificationChecked,
-                onCheckedChange = onNotificationCheckedChange,
+                onCheckedChange = onNotificationCheckedChange
             )
         }
         Spacer(Modifier.height(MaterialTheme.spacing.default))
         Row(
-            verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Text(stringResource(R.string.time_reminder))
             Spacer(Modifier.weight(1f))
             Text(
                 modifier = Modifier.clickable { },
                 text = "Every 3 hours",
-                color = MaterialTheme.colorScheme.primary,
+                color = MaterialTheme.colorScheme.primary
             )
         }
     }

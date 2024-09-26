@@ -9,5 +9,5 @@ annotation class Dispatcher(val dispatchers: H2oDispatchers)
 
 enum class H2oDispatchers {
     Default,
-    IO,
+    IO
 }

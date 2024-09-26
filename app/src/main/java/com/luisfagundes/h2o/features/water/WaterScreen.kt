@@ -49,7 +49,7 @@ import com.neo.wave.WaveView
 fun WaterRoute(
     viewModel: WaterViewModel = hiltViewModel(),
     onNavigateToHistory: () -> Unit = {},
-    onNavigateToSettings: () -> Unit = {},
+    onNavigateToSettings: () -> Unit = {}
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -59,7 +59,7 @@ fun WaterRoute(
         onNavigateToHistory = onNavigateToHistory,
         onNavigateToSettings = onNavigateToSettings,
         onAddWater = viewModel::updateWaterConsumed,
-        onRemoveWater = viewModel::updateWaterConsumed,
+        onRemoveWater = viewModel::updateWaterConsumed
     )
 }
 
@@ -70,11 +70,11 @@ private fun WaterScreen(
     onAddWater: (water: Water) -> Unit,
     onRemoveWater: (water: Water) -> Unit,
     onNavigateToHistory: () -> Unit = {},
-    onNavigateToSettings: () -> Unit = {},
+    onNavigateToSettings: () -> Unit = {}
 ) {
     Box(
         modifier = modifier,
-        contentAlignment = Alignment.Center,
+        contentAlignment = Alignment.Center
     ) {
         when (uiState) {
             is WaterUiState.Loading -> CircularProgressIndicator()
@@ -86,7 +86,7 @@ private fun WaterScreen(
                     onAddWater = onAddWater,
                     onRemoveWater = onRemoveWater,
                     onNavigateToHistory = onNavigateToHistory,
-                    onNavigateToSettings = onNavigateToSettings,
+                    onNavigateToSettings = onNavigateToSettings
                 )
         }
     }
@@ -100,16 +100,16 @@ private fun WaterContent(
     onAddWater: (water: Water) -> Unit = {},
     onRemoveWater: (water: Water) -> Unit = {},
     onNavigateToHistory: () -> Unit = {},
-    onNavigateToSettings: () -> Unit = {},
+    onNavigateToSettings: () -> Unit = {}
 ) {
     val targetProgress = water.consumed / water.goal
     val animatedProgress by animateFloatAsState(
         targetValue = targetProgress,
         animationSpec = tween(
             durationMillis = 500,
-            easing = LinearEasing,
+            easing = LinearEasing
         ),
-        label = "waterProgress",
+        label = "waterProgress"
     )
     val extra = 100f
 
@@ -123,16 +123,20 @@ private fun WaterContent(
                     Row {
                         TopBarNavButton(
                             imageVector = Icons.Default.History,
-                            contentDescription = stringResource(R.string.history_content_description),
-                            onClick = onNavigateToHistory,
+                            contentDescription = stringResource(
+                                R.string.history_content_description
+                            ),
+                            onClick = onNavigateToHistory
                         )
                         TopBarNavButton(
                             imageVector = Icons.Default.Settings,
-                            contentDescription = stringResource(R.string.settings_content_description),
-                            onClick = onNavigateToSettings,
+                            contentDescription = stringResource(
+                                R.string.settings_content_description
+                            ),
+                            onClick = onNavigateToSettings
                         )
                     }
-                },
+                }
             )
         },
         floatingActionButton = {
@@ -140,21 +144,21 @@ private fun WaterContent(
                 FloatingButton(
                     onClick = { onAddWater(water.copy(consumed = water.consumed + extra)) },
                     imageVector = Icons.Default.Add,
-                    imageDescription = stringResource(R.string.add_water_content_description),
+                    imageDescription = stringResource(R.string.add_water_content_description)
                 )
                 Spacer(Modifier.width(MaterialTheme.spacing.default))
                 FloatingButton(
                     onClick = { onRemoveWater(water.copy(consumed = water.consumed - extra)) },
                     imageVector = Icons.Default.Remove,
-                    imageDescription = stringResource(R.string.remove_water_content_description),
+                    imageDescription = stringResource(R.string.remove_water_content_description)
                 )
             }
         },
-        floatingActionButtonPosition = FabPosition.Center,
+        floatingActionButtonPosition = FabPosition.Center
     ) { paddingValues ->
         Box(
             modifier = modifier.padding(paddingValues),
-            contentAlignment = Alignment.Center,
+            contentAlignment = Alignment.Center
         ) {
             WaveView(
                 modifier = Modifier.fillMaxSize(),
@@ -164,7 +168,7 @@ private fun WaterContent(
                 progress = animatedProgress,
                 dragEnabled = false,
                 isDebugMode = false,
-                onProgressUpdated = { /* No-op */ },
+                onProgressUpdated = { /* No-op */ }
             )
             Text(
                 text = "${(animatedProgress * 100).toInt()}%",
@@ -176,12 +180,12 @@ private fun WaterContent(
                         Shadow(
                             color = Color.Black.copy(alpha = 0.5f),
                             offset = Offset(2f, 2f),
-                            blurRadius = 4f,
+                            blurRadius = 4f
                         )
                     } else {
                         null
-                    },
-                ),
+                    }
+                )
             )
         }
     }

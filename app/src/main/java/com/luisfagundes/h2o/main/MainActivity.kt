@@ -57,19 +57,19 @@ class MainActivity : ComponentActivity() {
                 enableEdgeToEdge(
                     statusBarStyle = SystemBarStyle.auto(
                         android.graphics.Color.TRANSPARENT,
-                        android.graphics.Color.TRANSPARENT,
+                        android.graphics.Color.TRANSPARENT
                     ) { darkTheme },
                     navigationBarStyle = SystemBarStyle.auto(
                         lightScrim,
-                        darkScrim,
-                    ) { darkTheme },
+                        darkScrim
+                    ) { darkTheme }
                 )
                 onDispose {}
             }
 
             H2oTheme(
                 darkTheme = darkTheme,
-                dynamicColor = false,
+                dynamicColor = false
             ) {
                 H2oApp()
             }
@@ -78,16 +78,15 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-private fun shouldUseDarkTheme(uiState: MainActivityUiState): Boolean =
-    when (uiState) {
-        MainActivityUiState.Loading -> isSystemInDarkTheme()
-        is MainActivityUiState.Success ->
-            when (uiState.userData.darkThemeConfig) {
-                DarkThemeConfig.FOLLOW_SYSTEM -> isSystemInDarkTheme()
-                DarkThemeConfig.LIGHT -> false
-                DarkThemeConfig.DARK -> true
-            }
-    }
+private fun shouldUseDarkTheme(uiState: MainActivityUiState): Boolean = when (uiState) {
+    MainActivityUiState.Loading -> isSystemInDarkTheme()
+    is MainActivityUiState.Success ->
+        when (uiState.userData.darkThemeConfig) {
+            DarkThemeConfig.FOLLOW_SYSTEM -> isSystemInDarkTheme()
+            DarkThemeConfig.LIGHT -> false
+            DarkThemeConfig.DARK -> true
+        }
+}
 
 private val lightScrim = android.graphics.Color.argb(0xe6, 0xFF, 0xFF, 0xFF)
 private val darkScrim = android.graphics.Color.argb(0x80, 0x1b, 0x1b, 0x1b)

@@ -8,7 +8,7 @@ val fakeWater =
         id = 1,
         date = "2021-09-01",
         consumed = 1000f,
-        goal = 2000f,
+        goal = 2000f
     )
 
 val fakeWaterEntity =
@@ -16,12 +16,12 @@ val fakeWaterEntity =
         id = 1,
         date = "2021-09-01",
         consumed = 1000f,
-        total = 2000f,
+        total = 2000f
     )
 
 val fakeWaterEntityList =
     listOf(
         fakeWaterEntity,
         fakeWaterEntity.copy(id = 2, date = "2021-09-02"),
-        fakeWaterEntity.copy(id = 3, date = "2021-09-03"),
+        fakeWaterEntity.copy(id = 3, date = "2021-09-03")
     )

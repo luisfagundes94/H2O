@@ -9,7 +9,7 @@ const val DATABASE_NAME = "h2o_database"
 @Database(
     entities = [WaterEntity::class],
     version = 1,
-    exportSchema = false,
+    exportSchema = false
 )
 abstract class H2oDatabase : RoomDatabase() {
     abstract fun waterDao(): WaterDao

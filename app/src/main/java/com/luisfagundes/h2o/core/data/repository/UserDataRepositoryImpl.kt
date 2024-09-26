@@ -4,11 +4,11 @@ import com.luisfagundes.h2o.core.data.preferences.H2oPreferencesDataSource
 import com.luisfagundes.h2o.core.domain.model.DarkThemeConfig
 import com.luisfagundes.h2o.core.domain.model.UserData
 import com.luisfagundes.h2o.core.domain.repository.UserDataRepository
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
 class UserDataRepositoryImpl @Inject constructor(
-    private val preferencesDataSource: H2oPreferencesDataSource,
+    private val preferencesDataSource: H2oPreferencesDataSource
 ) : UserDataRepository {
     override val userData: Flow<UserData>
         get() = preferencesDataSource.userData

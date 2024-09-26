@@ -10,7 +10,7 @@ interface UpdateWater {
 }
 
 class UpdateWaterImpl @Inject constructor(
-    private val repository: WaterRepository,
+    private val repository: WaterRepository
 ) : UpdateWater {
     override suspend operator fun invoke(water: Water): Result<Unit> {
         return if (water.consumed in 0f..water.goal) {

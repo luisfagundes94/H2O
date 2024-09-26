@@ -31,25 +31,18 @@ import com.luisfagundes.h2o.core.domain.model.Water
 import com.luisfagundes.h2o.core.ui.theme.spacing
 
 @Composable
-fun HistoryRoute(
-    viewModel: HistoryViewModel = hiltViewModel(),
-    onBackPressed: () -> Unit,
-) {
+fun HistoryRoute(viewModel: HistoryViewModel = hiltViewModel(), onBackPressed: () -> Unit) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     HistoryScreen(
         modifier = Modifier.fillMaxSize(),
         uiState = uiState,
-        onBackPressed = onBackPressed,
+        onBackPressed = onBackPressed
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun HistoryScreen(
-    modifier: Modifier,
-    uiState: HistoryUiState,
-    onBackPressed: () -> Unit,
-) {
+private fun HistoryScreen(modifier: Modifier, uiState: HistoryUiState, onBackPressed: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -58,16 +51,16 @@ private fun HistoryScreen(
                     IconButton(onClick = onBackPressed) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(R.string.water_history),
+                            contentDescription = stringResource(R.string.water_history)
                         )
                     }
-                },
+                }
             )
-        },
+        }
     ) { contentPadding ->
         Box(
             modifier = modifier.padding(contentPadding),
-            contentAlignment = Alignment.Center,
+            contentAlignment = Alignment.Center
         ) {
             when (uiState) {
                 is HistoryUiState.Loading -> CircularProgressIndicator()
@@ -77,7 +70,7 @@ private fun HistoryScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(MaterialTheme.spacing.default),
-                        uiState.waterHistory,
+                        uiState.waterHistory
                     )
             }
         }
@@ -85,33 +78,27 @@ private fun HistoryScreen(
 }
 
 @Composable
-private fun HistoryContent(
-    modifier: Modifier,
-    waterHistory: List<Water>,
-) {
+private fun HistoryContent(modifier: Modifier, waterHistory: List<Water>) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.default),
-        modifier = modifier,
+        modifier = modifier
     ) {
         items(waterHistory) { water ->
             HistoryItem(
                 modifier = Modifier.padding(MaterialTheme.spacing.default),
-                water = water,
+                water = water
             )
         }
     }
 }
 
 @Composable
-private fun HistoryItem(
-    modifier: Modifier,
-    water: Water,
-) {
+private fun HistoryItem(modifier: Modifier, water: Water) {
     Card {
         Row(
             modifier = modifier,
             horizontalArrangement = Arrangement.Start,
-            verticalAlignment = Alignment.Top,
+            verticalAlignment = Alignment.Top
         ) {
             Text(water.date.split("-").reversed().joinToString("/"))
             Spacer(modifier = Modifier.weight(1f))

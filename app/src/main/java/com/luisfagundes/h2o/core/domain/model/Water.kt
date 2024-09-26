@@ -7,15 +7,14 @@ data class Water(
     val id: Int,
     val date: String,
     val consumed: Float,
-    val goal: Float,
+    val goal: Float
 ) {
     companion object {
-        fun empty() =
-            Water(
-                id = 0,
-                date = "",
-                consumed = 0f,
-                goal = 0f,
-            )
+        fun empty() = Water(
+            id = 0,
+            date = "",
+            consumed = 0f,
+            goal = 0f
+        )
     }
 }

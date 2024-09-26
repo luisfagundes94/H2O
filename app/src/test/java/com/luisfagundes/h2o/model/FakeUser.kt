@@ -9,5 +9,5 @@ val fakeUserData =
         useDynamicColor = false,
         waterGoal = 2000f,
         waterReminderInterval = 3f,
-        notificationEnabled = false,
+        notificationEnabled = false
     )

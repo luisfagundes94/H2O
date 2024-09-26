@@ -34,7 +34,7 @@ class WaterViewModelTest {
     fun setUp() {
         viewModel = WaterViewModel(
             getWaterFromToday,
-            updateWater,
+            updateWater
         )
     }
 

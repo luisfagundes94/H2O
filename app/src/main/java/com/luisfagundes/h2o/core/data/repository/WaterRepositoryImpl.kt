@@ -6,12 +6,12 @@ import com.luisfagundes.h2o.core.data.mapper.WaterMapper.toDomainModel
 import com.luisfagundes.h2o.core.data.mapper.WaterMapper.toEntityModel
 import com.luisfagundes.h2o.core.domain.model.Water
 import com.luisfagundes.h2o.core.domain.repository.WaterRepository
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
 class WaterRepositoryImpl @Inject constructor(
-    private val dao: WaterDao,
+    private val dao: WaterDao
 ) : WaterRepository {
     override fun getWaterFrom(date: String): Flow<Water?> {
         return dao.getWaterFrom(date).map { entity ->

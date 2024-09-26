@@ -7,18 +7,18 @@ import com.luisfagundes.h2o.core.domain.model.Water
 import com.luisfagundes.h2o.core.domain.usecase.GetWaterFromToday
 import com.luisfagundes.h2o.core.domain.usecase.UpdateWater
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class WaterViewModel @Inject constructor(
     private val getWaterFromToday: GetWaterFromToday,
-    private val updateWater: UpdateWater,
+    private val updateWater: UpdateWater
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<WaterUiState>(WaterUiState.Loading)
@@ -27,7 +27,7 @@ class WaterViewModel @Inject constructor(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = WaterUiState.Loading,
+            initialValue = WaterUiState.Loading
         )
 
     private fun getWater() = viewModelScope.launch {

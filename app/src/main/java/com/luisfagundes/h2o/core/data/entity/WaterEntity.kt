@@ -8,5 +8,5 @@ data class WaterEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val date: String,
     val consumed: Float,
-    val total: Float,
+    val total: Float
 )

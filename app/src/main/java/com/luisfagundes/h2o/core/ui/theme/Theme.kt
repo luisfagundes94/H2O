@@ -49,7 +49,7 @@ private val lightScheme =
         surfaceContainerLow = surfaceContainerLowLight,
         surfaceContainer = surfaceContainerLight,
         surfaceContainerHigh = surfaceContainerHighLight,
-        surfaceContainerHighest = surfaceContainerHighestLight,
+        surfaceContainerHighest = surfaceContainerHighestLight
     )
 
 private val darkScheme =
@@ -88,7 +88,7 @@ private val darkScheme =
         surfaceContainerLow = surfaceContainerLowDark,
         surfaceContainer = surfaceContainerDark,
         surfaceContainerHigh = surfaceContainerHighDark,
-        surfaceContainerHighest = surfaceContainerHighestDark,
+        surfaceContainerHighest = surfaceContainerHighestDark
     )
 
 /**
@@ -108,7 +108,7 @@ fun H2oTheme(
     dynamicColor: Boolean = false,
     content:
     @Composable()
-    () -> Unit,
+    () -> Unit
 ) {
     val colorScheme =
         when {
@@ -124,7 +124,7 @@ fun H2oTheme(
     val defaultBackgroundTheme =
         BackgroundTheme(
             color = colorScheme.surface,
-            tonalElevation = 2.dp,
+            tonalElevation = 2.dp
         )
 
     val backgroundTheme =
@@ -135,12 +135,12 @@ fun H2oTheme(
 
     CompositionLocalProvider(
         LocalBackgroundTheme provides backgroundTheme,
-        LocalSpacing provides Spacing(),
+        LocalSpacing provides Spacing()
     ) {
         MaterialTheme(
             colorScheme = colorScheme,
             typography = AppTypography,
-            content = content,
+            content = content
         )
     }
 }

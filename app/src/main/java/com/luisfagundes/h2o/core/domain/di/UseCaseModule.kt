@@ -17,24 +17,20 @@ import dagger.hilt.android.components.ViewModelComponent
 @InstallIn(ViewModelComponent::class)
 class UseCaseModule {
     @Provides
-    fun provideGetWaterHistoryUseCase(
-        waterRepository: WaterRepository,
-    ): GetWaterHistory {
+    fun provideGetWaterHistoryUseCase(waterRepository: WaterRepository): GetWaterHistory {
         return GetWaterHistoryImpl(waterRepository)
     }
 
     @Provides
     fun provideGetWaterFromToday(
         waterRepository: WaterRepository,
-        userDataRepository: UserDataRepository,
+        userDataRepository: UserDataRepository
     ): GetWaterFromToday {
         return GetWaterFromTodayImpl(waterRepository, userDataRepository)
     }
 
     @Provides
-    fun provideUpdateWater(
-        waterRepository: WaterRepository,
-    ): UpdateWater {
+    fun provideUpdateWater(waterRepository: WaterRepository): UpdateWater {
         return UpdateWaterImpl(waterRepository)
     }
 }
