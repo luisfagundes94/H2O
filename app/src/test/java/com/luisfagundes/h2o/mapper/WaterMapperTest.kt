@@ -2,8 +2,8 @@ package com.luisfagundes.h2o.mapper
 
 import com.luisfagundes.h2o.core.data.mapper.WaterMapper.toDomainModel
 import com.luisfagundes.h2o.core.data.mapper.WaterMapper.toEntityModel
-import com.luisfagundes.h2o.factory.fakeWater
-import com.luisfagundes.h2o.factory.fakeWaterEntity
+import com.luisfagundes.h2o.model.fakeWater
+import com.luisfagundes.h2o.model.fakeWaterEntity
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

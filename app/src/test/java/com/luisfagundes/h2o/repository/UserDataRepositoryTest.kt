@@ -4,7 +4,7 @@ import com.luisfagundes.h2o.core.data.preferences.H2oPreferencesDataSource
 import com.luisfagundes.h2o.core.data.repository.UserDataRepositoryImpl
 import com.luisfagundes.h2o.core.domain.model.DarkThemeConfig
 import com.luisfagundes.h2o.core.domain.repository.UserDataRepository
-import com.luisfagundes.h2o.factory.fakeUserData
+import com.luisfagundes.h2o.model.fakeUserData
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

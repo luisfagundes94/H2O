@@ -3,7 +3,7 @@ package com.luisfagundes.h2o.viewmodel
 import app.cash.turbine.test
 import com.luisfagundes.h2o.core.domain.repository.UserDataRepository
 import com.luisfagundes.h2o.core.testing.MainDispatcherRule
-import com.luisfagundes.h2o.factory.fakeUserData
+import com.luisfagundes.h2o.model.fakeUserData
 import com.luisfagundes.h2o.features.settings.SettingsUiState
 import com.luisfagundes.h2o.features.settings.SettingsViewModel
 import io.mockk.coEvery

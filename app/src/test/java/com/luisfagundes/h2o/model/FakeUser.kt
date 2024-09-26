@@ -1,4 +1,4 @@
-package com.luisfagundes.h2o.factory
+package com.luisfagundes.h2o.model
 
 import com.luisfagundes.h2o.core.domain.model.DarkThemeConfig
 import com.luisfagundes.h2o.core.domain.model.UserData

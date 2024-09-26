@@ -5,9 +5,9 @@ import com.luisfagundes.h2o.core.data.database.WaterDao
 import com.luisfagundes.h2o.core.data.mapper.WaterMapper.toDomainModel
 import com.luisfagundes.h2o.core.data.mapper.WaterMapper.toEntityModel
 import com.luisfagundes.h2o.core.data.repository.WaterRepositoryImpl
-import com.luisfagundes.h2o.factory.fakeWater
-import com.luisfagundes.h2o.factory.fakeWaterEntity
-import com.luisfagundes.h2o.factory.fakeWaterEntityList
+import com.luisfagundes.h2o.model.fakeWater
+import com.luisfagundes.h2o.model.fakeWaterEntity
+import com.luisfagundes.h2o.model.fakeWaterEntityList
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
