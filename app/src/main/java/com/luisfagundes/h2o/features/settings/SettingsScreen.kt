@@ -23,6 +23,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -198,14 +199,19 @@ private fun GeneralSection(
             fontWeight = FontWeight.Bold
         )
         Spacer(Modifier.height(MaterialTheme.spacing.default))
-        Row {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Text("Goal of the day")
             Spacer(Modifier.weight(1f))
-            Text(
-                modifier = Modifier.clickable { onGoalOfTheDayClick(goalOfTheDay) },
-                text = "${goalOfTheDay.toInt()} ml",
-                color = MaterialTheme.colorScheme.primary
-            )
+            TextButton(
+                onClick = { onGoalOfTheDayClick(goalOfTheDay) }
+            ) {
+                Text(
+                    text = "${goalOfTheDay.toInt()} ml",
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
         }
     }
 }
@@ -241,11 +247,14 @@ private fun AppSettingsSection(
         ) {
             Text(stringResource(R.string.time_reminder))
             Spacer(Modifier.weight(1f))
-            Text(
-                modifier = Modifier.clickable { },
-                text = "Every 3 hours",
-                color = MaterialTheme.colorScheme.primary
-            )
+            TextButton(
+                onClick = {}
+            ) {
+                Text(
+                    text = "Every 3 hours",
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
         }
     }
 }
