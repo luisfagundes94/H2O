@@ -82,7 +82,15 @@ private fun HistoryScreen(modifier: Modifier, uiState: HistoryUiState, onBackPre
 }
 
 @Composable
-private fun HistoryContent(modifier: Modifier, waterHistory: List<Water>) {
+private fun HistoryContent(
+    modifier: Modifier,
+    waterHistory: List<Water>
+) {
+    if (waterHistory.isEmpty()) {
+        Text(stringResource(R.string.empty_water_history))
+        return
+    }
+
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.default),
         modifier = modifier

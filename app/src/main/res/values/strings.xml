@@ -15,4 +15,5 @@
     <string name="notification">Notification</string>
     <string name="share_app">Share app</string>
     <string name="time_reminder">Set time reminder</string>
+    <string name="empty_water_history">No water history yet!</string>
 </resources>
