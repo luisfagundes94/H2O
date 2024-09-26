@@ -31,8 +31,12 @@ import com.luisfagundes.h2o.core.domain.model.Water
 import com.luisfagundes.h2o.core.ui.theme.spacing
 
 @Composable
-fun HistoryRoute(viewModel: HistoryViewModel = hiltViewModel(), onBackPressed: () -> Unit) {
+fun HistoryRoute(
+    viewModel: HistoryViewModel = hiltViewModel(),
+    onBackPressed: () -> Unit
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     HistoryScreen(
         modifier = Modifier.fillMaxSize(),
         uiState = uiState,
