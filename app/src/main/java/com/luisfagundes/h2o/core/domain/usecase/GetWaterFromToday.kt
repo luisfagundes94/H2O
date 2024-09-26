@@ -15,7 +15,7 @@ interface GetWaterFromToday {
 class GetWaterFromTodayImpl @Inject constructor(
     private val waterRepository: WaterRepository,
     private val userDataRepository: UserDataRepository,
-): GetWaterFromToday {
+) : GetWaterFromToday {
     override operator fun invoke(): Flow<Water> {
         return combine(
             waterRepository.getWaterFrom(getCurrentDate()),

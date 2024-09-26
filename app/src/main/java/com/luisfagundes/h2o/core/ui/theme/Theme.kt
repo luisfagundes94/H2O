@@ -107,8 +107,8 @@ fun H2oTheme(
     androidTheme: Boolean = false,
     dynamicColor: Boolean = false,
     content:
-        @Composable()
-        () -> Unit,
+    @Composable()
+    () -> Unit,
 ) {
     val colorScheme =
         when {

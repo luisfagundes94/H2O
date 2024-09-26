@@ -1,5 +1,6 @@
 package com.luisfagundes.h2o.viewmodel
 
+import com.luisfagundes.h2o.core.common.result.Result
 import com.luisfagundes.h2o.core.domain.usecase.UpdateWater
 import com.luisfagundes.h2o.core.testing.MainDispatcherRule
 import com.luisfagundes.h2o.core.testing.usecase.FakeGetWaterFromToday
@@ -7,11 +8,8 @@ import com.luisfagundes.h2o.features.water.WaterUiState
 import com.luisfagundes.h2o.features.water.WaterViewModel
 import com.luisfagundes.h2o.model.fakeUserData
 import com.luisfagundes.h2o.model.fakeWater
-import io.mockk.Runs
 import io.mockk.coEvery
-import com.luisfagundes.h2o.core.common.result.Result
 import io.mockk.coVerify
-import io.mockk.just
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi

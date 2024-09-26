@@ -74,10 +74,9 @@ private fun HistoryScreen(
                 is HistoryUiState.Error -> Unit
                 is HistoryUiState.Success ->
                     HistoryContent(
-                        modifier =
-                            Modifier
-                                .fillMaxSize()
-                                .padding(MaterialTheme.spacing.default),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(MaterialTheme.spacing.default),
                         uiState.waterHistory,
                     )
             }

@@ -11,6 +11,6 @@ interface GetWaterHistory {
 
 class GetWaterHistoryImpl @Inject constructor(
     private val repository: WaterRepository,
-): GetWaterHistory {
+) : GetWaterHistory {
     override operator fun invoke() = repository.getWaterHistory()
 }

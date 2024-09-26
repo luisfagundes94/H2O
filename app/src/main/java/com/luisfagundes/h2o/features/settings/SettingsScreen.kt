@@ -46,10 +46,9 @@ fun SettingsRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     SettingsScreen(
-        modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(MaterialTheme.spacing.default),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(MaterialTheme.spacing.default),
         uiState = uiState,
         onBackPressed = onBackPressed,
         onGoalOfTheDayClick = {},

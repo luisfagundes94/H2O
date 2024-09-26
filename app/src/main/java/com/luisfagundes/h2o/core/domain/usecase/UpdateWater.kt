@@ -1,7 +1,7 @@
 package com.luisfagundes.h2o.core.domain.usecase
 
-import com.luisfagundes.h2o.core.domain.model.Water
 import com.luisfagundes.h2o.core.common.result.Result
+import com.luisfagundes.h2o.core.domain.model.Water
 import com.luisfagundes.h2o.core.domain.repository.WaterRepository
 import javax.inject.Inject
 

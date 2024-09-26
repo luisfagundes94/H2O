@@ -23,7 +23,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -106,11 +105,10 @@ private fun WaterContent(
     val targetProgress = water.consumed / water.goal
     val animatedProgress by animateFloatAsState(
         targetValue = targetProgress,
-        animationSpec =
-            tween(
-                durationMillis = 500,
-                easing = LinearEasing,
-            ),
+        animationSpec = tween(
+            durationMillis = 500,
+            easing = LinearEasing,
+        ),
         label = "waterProgress",
     )
     val extra = 100f
@@ -171,20 +169,19 @@ private fun WaterContent(
             Text(
                 text = "${(animatedProgress * 100).toInt()}%",
                 fontWeight = FontWeight.Bold,
-                style =
-                    TextStyle(
-                        fontSize = 60.sp,
-                        shadow =
-                            if (isSystemInDarkTheme()) {
-                                Shadow(
-                                    color = Color.Black.copy(alpha = 0.5f),
-                                    offset = Offset(2f, 2f),
-                                    blurRadius = 4f,
-                                )
-                            } else {
-                                null
-                            },
-                    ),
+                style = TextStyle(
+                    fontSize = 60.sp,
+                    shadow =
+                    if (isSystemInDarkTheme()) {
+                        Shadow(
+                            color = Color.Black.copy(alpha = 0.5f),
+                            offset = Offset(2f, 2f),
+                            blurRadius = 4f,
+                        )
+                    } else {
+                        null
+                    },
+                ),
             )
         }
     }
