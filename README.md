@@ -3,7 +3,7 @@ Drinking Water Android App
 
 Features:
 - Simple and clean design with animations
-- Water History
+- A complete water history
 - A reminder to drink water every x hours
 
 ## Screenshots
