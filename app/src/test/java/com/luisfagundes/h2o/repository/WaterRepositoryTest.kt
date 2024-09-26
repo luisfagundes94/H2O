@@ -23,86 +23,78 @@ class WaterRepositoryTest {
     private val repository = WaterRepositoryImpl(dao)
 
     @Test
-    fun getWaterFrom_returnsWater() =
-        runTest {
-            val date = "2023-10-01"
-            coEvery { dao.getWaterFrom(date) } returns flowOf(fakeWaterEntity)
+    fun getWaterFrom_returnsWater() = runTest {
+        val date = "2023-10-01"
+        coEvery { dao.getWaterFrom(date) } returns flowOf(fakeWaterEntity)
 
-            val result = repository.getWaterFrom(date).first()
+        val result = repository.getWaterFrom(date).first()
 
-            assertEquals(fakeWaterEntity.toDomainModel(), result)
-        }
-
-    @Test
-    fun getWaterFrom_returnsNullWhenNoData() =
-        runTest {
-            val date = "2023-10-01"
-            coEvery { dao.getWaterFrom(date) } returns flowOf(null)
-
-            val result = repository.getWaterFrom(date).first()
-
-            assertEquals(null, result)
-        }
+        assertEquals(fakeWaterEntity.toDomainModel(), result)
+    }
 
     @Test
-    fun getWaterHistory_returnsWaterList() =
-        runTest {
-            coEvery { dao.getWaterHistory() } returns flowOf(fakeWaterEntityList)
+    fun getWaterFrom_returnsNullWhenNoData() = runTest {
+        val date = "2023-10-01"
+        coEvery { dao.getWaterFrom(date) } returns flowOf(null)
 
-            val result = repository.getWaterHistory().first()
+        val result = repository.getWaterFrom(date).first()
 
-            assertEquals(fakeWaterEntityList.map { it.toDomainModel() }, result)
-        }
-
-    @Test
-    fun getWaterHistory_returnsEmptyListWhenNoData() =
-        runTest {
-            coEvery { dao.getWaterHistory() } returns flowOf(emptyList())
-
-            val result = repository.getWaterHistory().first()
-
-            assertTrue(result.isNullOrEmpty())
-        }
+        assertEquals(null, result)
+    }
 
     @Test
-    fun addWater_insertsWater() =
-        runTest {
-            coEvery { dao.insertWater(fakeWater.toEntityModel()) } returns Unit
+    fun getWaterHistory_returnsWaterList() = runTest {
+        coEvery { dao.getWaterHistory() } returns flowOf(fakeWaterEntityList)
 
-            repository.addWater(fakeWater)
+        val result = repository.getWaterHistory().first()
 
-            coVerify { dao.insertWater(fakeWater.toEntityModel()) }
-        }
-
-    @Test
-    fun updateWater_updatesWaterSuccessfully() =
-        runTest {
-            coEvery { dao.updateWater(fakeWater.toEntityModel()) } returns Unit
-
-            val result = repository.updateWater(fakeWater)
-
-            assertTrue(result is Result.Success)
-        }
+        assertEquals(fakeWaterEntityList.map { it.toDomainModel() }, result)
+    }
 
     @Test
-    fun updateWater_returnsErrorOnException() =
-        runTest {
-            val exception = Exception("Update failed")
-            coEvery { dao.updateWater(fakeWater.toEntityModel()) } throws exception
+    fun getWaterHistory_returnsEmptyListWhenNoData() = runTest {
+        coEvery { dao.getWaterHistory() } returns flowOf(emptyList())
 
-            val result = repository.updateWater(fakeWater)
+        val result = repository.getWaterHistory().first()
 
-            assertTrue(result is Result.Error)
-            assertEquals(exception, (result as Result.Error).exception)
-        }
+        assertTrue(result.isNullOrEmpty())
+    }
 
     @Test
-    fun deleteWater_deletesWater() =
-        runTest {
-            coEvery { dao.deleteWater(fakeWater.toEntityModel()) } returns Unit
+    fun addWater_insertsWater() = runTest {
+        coEvery { dao.insertWater(fakeWater.toEntityModel()) } returns Unit
 
-            repository.deleteWater(fakeWater)
+        repository.addWater(fakeWater)
 
-            coVerify { dao.deleteWater(fakeWater.toEntityModel()) }
-        }
+        coVerify { dao.insertWater(fakeWater.toEntityModel()) }
+    }
+
+    @Test
+    fun updateWater_updatesWaterSuccessfully() = runTest {
+        coEvery { dao.updateWater(fakeWater.toEntityModel()) } returns Unit
+
+        val result = repository.updateWater(fakeWater)
+
+        assertTrue(result is Result.Success)
+    }
+
+    @Test
+    fun updateWater_returnsErrorOnException() = runTest {
+        val exception = Exception("Update failed")
+        coEvery { dao.updateWater(fakeWater.toEntityModel()) } throws exception
+
+        val result = repository.updateWater(fakeWater)
+
+        assertTrue(result is Result.Error)
+        assertEquals(exception, (result as Result.Error).exception)
+    }
+
+    @Test
+    fun deleteWater_deletesWater() = runTest {
+        coEvery { dao.deleteWater(fakeWater.toEntityModel()) } returns Unit
+
+        repository.deleteWater(fakeWater)
+
+        coVerify { dao.deleteWater(fakeWater.toEntityModel()) }
+    }
 }

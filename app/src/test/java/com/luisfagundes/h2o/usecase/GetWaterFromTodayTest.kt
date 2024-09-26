@@ -27,41 +27,37 @@ class GetWaterFromTodayTest {
     }
 
     @Test
-    fun returnsWaterFromToday_whenWaterExists() =
-        runTest {
-            val water = Water.empty()
-            coEvery { waterRepository.getWaterFrom(any()) } returns flowOf(water)
-            coEvery { userDataRepository.userData } returns flowOf(fakeUserData)
+    fun returnsWaterFromToday_whenWaterExists() = runTest {
+        val water = Water.empty()
+        coEvery { waterRepository.getWaterFrom(any()) } returns flowOf(water)
+        coEvery { userDataRepository.userData } returns flowOf(fakeUserData)
 
-            val result = getWaterFromToday().first()
+        val result = getWaterFromToday().first()
 
-            assert(result == water)
-        }
-
-    @Test
-    fun returnsEmptyWaterWithGoal_whenWaterDoesNotExist() =
-        runTest {
-            val water = Water.empty()
-            coEvery { waterRepository.getWaterFrom(any()) } returns flowOf(null)
-            coEvery { userDataRepository.userData } returns flowOf(fakeUserData)
-            coEvery { waterRepository.addWater(any()) } returns Unit
-
-            val result = getWaterFromToday().first()
-
-            assert(result.goal == fakeUserData.waterGoal)
-            coVerify { waterRepository.addWater(any()) }
-        }
+        assert(result == water)
+    }
 
     @Test
-    fun returnsEmptyWaterWithCurrentDate_whenWaterDoesNotExist() =
-        runTest {
-            coEvery { waterRepository.getWaterFrom(any()) } returns flowOf(null)
-            coEvery { userDataRepository.userData } returns flowOf(fakeUserData)
-            coEvery { waterRepository.addWater(any()) } returns Unit
+    fun returnsEmptyWaterWithGoal_whenWaterDoesNotExist() = runTest {
+        coEvery { waterRepository.getWaterFrom(any()) } returns flowOf(null)
+        coEvery { userDataRepository.userData } returns flowOf(fakeUserData)
+        coEvery { waterRepository.addWater(any()) } returns Unit
 
-            val result = getWaterFromToday().first()
+        val result = getWaterFromToday().first()
 
-            assert(result.date == getCurrentDate())
-            coVerify { waterRepository.addWater(any()) }
-        }
+        assert(result.goal == fakeUserData.waterGoal)
+        coVerify { waterRepository.addWater(any()) }
+    }
+
+    @Test
+    fun returnsEmptyWaterWithCurrentDate_whenWaterDoesNotExist() = runTest {
+        coEvery { waterRepository.getWaterFrom(any()) } returns flowOf(null)
+        coEvery { userDataRepository.userData } returns flowOf(fakeUserData)
+        coEvery { waterRepository.addWater(any()) } returns Unit
+
+        val result = getWaterFromToday().first()
+
+        assert(result.date == getCurrentDate())
+        coVerify { waterRepository.addWater(any()) }
+    }
 }

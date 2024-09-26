@@ -28,42 +28,38 @@ class SettingsViewModelTest {
     }
 
     @Test
-    fun uiState_isLoadingInitially() =
-        runTest {
-            coEvery { userDataRepository.userData } returns flowOf(fakeUserData)
+    fun uiState_isLoadingInitially() = runTest {
+        coEvery { userDataRepository.userData } returns flowOf(fakeUserData)
 
-            assert(viewModel.uiState.value is SettingsUiState.Loading)
-        }
-
-    @Test
-    fun uiState_updatesWithSuccess_whenUserDataIsAvailable() =
-        runTest {
-            coEvery { userDataRepository.userData } returns flowOf(fakeUserData)
-
-            viewModel.getUserData()
-
-            viewModel.uiState.test {
-                assert(awaitItem() == SettingsUiState.Success(fakeUserData))
-            }
-        }
+        assert(viewModel.uiState.value is SettingsUiState.Loading)
+    }
 
     @Test
-    fun updateNotificationToggle_callsRepository() =
-        runTest {
-            coEvery { userDataRepository.setNotificationEnabled(any()) } returns Unit
+    fun uiState_updatesWithSuccess_whenUserDataIsAvailable() = runTest {
+        coEvery { userDataRepository.userData } returns flowOf(fakeUserData)
 
-            viewModel.updateNotificationToggle(true)
+        viewModel.getUserData()
 
-            coVerify { userDataRepository.setNotificationEnabled(true) }
+        viewModel.uiState.test {
+            assert(awaitItem() == SettingsUiState.Success(fakeUserData))
         }
+    }
 
     @Test
-    fun updateGoalOfTheDay_callsRepository() =
-        runTest {
-            coEvery { userDataRepository.setGoalOfTheDay(any()) } returns Unit
+    fun updateNotificationToggle_callsRepository() = runTest {
+        coEvery { userDataRepository.setNotificationEnabled(any()) } returns Unit
 
-            viewModel.updateGoalOfTheDay(2000f)
+        viewModel.updateNotificationToggle(true)
 
-            coVerify { userDataRepository.setGoalOfTheDay(2000f) }
-        }
+        coVerify { userDataRepository.setNotificationEnabled(true) }
+    }
+
+    @Test
+    fun updateGoalOfTheDay_callsRepository() = runTest {
+        coEvery { userDataRepository.setGoalOfTheDay(any()) } returns Unit
+
+        viewModel.updateGoalOfTheDay(2000f)
+
+        coVerify { userDataRepository.setGoalOfTheDay(2000f) }
+    }
 }
