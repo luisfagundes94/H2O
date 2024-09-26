@@ -43,6 +43,7 @@ import com.luisfagundes.h2o.R
 import com.luisfagundes.h2o.core.designsystem.components.FloatingButton
 import com.luisfagundes.h2o.core.designsystem.components.TopBarNavButton
 import com.luisfagundes.h2o.core.domain.model.Water
+import com.luisfagundes.h2o.core.ui.theme.waterColor
 import com.luisfagundes.h2o.core.ui.theme.spacing
 import com.neo.wave.WaveSpeed
 import com.neo.wave.WaveView
@@ -166,7 +167,7 @@ private fun WaterContent(
         ) {
             WaveView(
                 modifier = Modifier.fillMaxSize(),
-                waveColor = MaterialTheme.colorScheme.primary,
+                waveColor = waterColor,
                 wavePointCount = 10,
                 waveSpeed = WaveSpeed.FAST,
                 progress = animatedProgress,

@@ -74,6 +74,8 @@ val surfaceContainerDark = Color(0xFF1C2023)
 val surfaceContainerHighDark = Color(0xFF262B2E)
 val surfaceContainerHighestDark = Color(0xFF313539)
 
+val waterColor = Color(0xFF90CEF3)
+
 
 
 
