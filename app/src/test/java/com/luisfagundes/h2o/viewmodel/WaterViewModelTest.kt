@@ -9,6 +9,7 @@ import com.luisfagundes.h2o.model.fakeUserData
 import com.luisfagundes.h2o.model.fakeWater
 import io.mockk.Runs
 import io.mockk.coEvery
+import com.luisfagundes.h2o.core.common.result.Result
 import io.mockk.coVerify
 import io.mockk.just
 import io.mockk.mockk
@@ -40,6 +41,11 @@ class WaterViewModelTest {
     }
 
     @Test
+    fun getWater_initiallyLoading() = runTest {
+        assertEquals(WaterUiState.Loading, viewModel.uiState.value)
+    }
+
+    @Test
     fun getWater_updatesUiStateWithSuccess() = runTest {
         backgroundScope.launch(UnconfinedTestDispatcher()) { viewModel.uiState.collect() }
 
@@ -51,19 +57,23 @@ class WaterViewModelTest {
 
     @Test
     fun updateWaterConsumed_updatesUiStateWithSuccess() = runTest {
-        coEvery { updateWater(fakeWater) } just Runs
+        backgroundScope.launch(UnconfinedTestDispatcher()) { viewModel.uiState.collect() }
+        coEvery { updateWater(fakeWater) } returns Result.Success(Unit)
 
         viewModel.updateWaterConsumed(fakeWater)
 
         coVerify(exactly = 1) { updateWater(fakeWater) }
+        assertEquals(WaterUiState.Success(fakeWater), viewModel.uiState.value)
     }
 
     @Test
     fun updateWaterConsumed_doesNotUpdateUiStateOnFailure() = runTest {
-        coEvery { updateWater(fakeWater) } just Runs
+        backgroundScope.launch(UnconfinedTestDispatcher()) { viewModel.uiState.collect() }
+        coEvery { updateWater(fakeWater) } returns Result.Error(Throwable())
 
         viewModel.updateWaterConsumed(fakeWater)
 
         coVerify(exactly = 1) { updateWater(fakeWater) }
+        assertEquals(WaterUiState.Error, viewModel.uiState.value)
     }
 }

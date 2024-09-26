@@ -79,7 +79,7 @@ private fun WaterScreen(
     ) {
         when (uiState) {
             is WaterUiState.Loading -> CircularProgressIndicator()
-            is WaterUiState.Empty -> Unit
+            is WaterUiState.Error -> Unit
             is WaterUiState.Success ->
                 WaterContent(
                     modifier = Modifier.fillMaxSize(),
