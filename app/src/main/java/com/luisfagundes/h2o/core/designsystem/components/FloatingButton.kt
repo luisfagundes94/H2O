@@ -1,5 +1,6 @@
 package com.luisfagundes.h2o.core.designsystem.components
 
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -16,6 +17,7 @@ fun FloatingButton(
     FloatingActionButton(
         modifier = modifier,
         onClick = onClick,
+        shape = RoundedCornerShape(percent = 50),
     ) {
         Icon(
             imageVector = imageVector,
