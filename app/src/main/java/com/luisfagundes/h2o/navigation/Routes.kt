@@ -12,5 +12,3 @@ object Routes {
     @Serializable
     object History
 }
-
-
