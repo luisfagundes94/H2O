@@ -1,7 +1,7 @@
 # H2O
 Drinking Water Android App
 
-Features:
+### Features:
 - Simple and clean design with animations
 - A complete water history
 - A reminder to drink water every x hours
