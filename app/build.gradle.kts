@@ -128,6 +128,9 @@ dependencies {
     implementation(libs.lottie)
     implementation(libs.wave.animation)
 
+    // Number picker
+    implementation(libs.numberPicker)
+
     // Testing
     implementation(libs.junit)
     implementation(libs.kotlinx.coroutines.test)

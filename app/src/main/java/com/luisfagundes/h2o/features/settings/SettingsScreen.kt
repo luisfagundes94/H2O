@@ -1,5 +1,6 @@
 package com.luisfagundes.h2o.features.settings
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Android
@@ -24,17 +26,25 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.chargemap.compose.numberpicker.ListItemPicker
+import com.chargemap.compose.numberpicker.NumberPicker
 import com.luisfagundes.h2o.R
 import com.luisfagundes.h2o.core.common.extensions.getAppVersion
+import com.luisfagundes.h2o.core.designsystem.components.GoalPicker
 import com.luisfagundes.h2o.core.domain.model.UserData
 import com.luisfagundes.h2o.core.ui.theme.spacing
 
@@ -48,8 +58,7 @@ fun SettingsRoute(viewModel: SettingsViewModel = hiltViewModel(), onBackPressed:
             .padding(MaterialTheme.spacing.default),
         uiState = uiState,
         onBackPressed = onBackPressed,
-        onGoalOfTheDayClick = {},
-        onNotificationCheckedChange = viewModel::updateNotificationToggle
+        onUpdateGoalOfTheDay = viewModel::updateGoalOfTheDay
     )
 
     LaunchedEffect(Unit) {
@@ -63,8 +72,7 @@ private fun SettingsScreen(
     modifier: Modifier,
     uiState: SettingsUiState,
     onBackPressed: () -> Unit,
-    onGoalOfTheDayClick: (Float) -> Unit,
-    onNotificationCheckedChange: (Boolean) -> Unit
+    onUpdateGoalOfTheDay: (Float) -> Unit = {},
 ) {
     Scaffold(
         topBar = {
@@ -90,9 +98,9 @@ private fun SettingsScreen(
                     SettingsContent(
                         modifier = Modifier,
                         userData = uiState.userData,
-                        onGoalOfTheDayClick = onGoalOfTheDayClick,
                         notificationChecked = uiState.userData.notificationEnabled,
-                        onNotificationCheckedChange = onNotificationCheckedChange
+                        onNotificationCheckedChange = { },
+                        onUpdateGoalOfTheDay = onUpdateGoalOfTheDay
                     )
             }
         }
@@ -103,10 +111,25 @@ private fun SettingsScreen(
 private fun SettingsContent(
     modifier: Modifier,
     userData: UserData,
-    onGoalOfTheDayClick: (Float) -> Unit,
+    onUpdateGoalOfTheDay: (Float) -> Unit,
     notificationChecked: Boolean,
-    onNotificationCheckedChange: (Boolean) -> Unit
+    onNotificationCheckedChange: (Boolean) -> Unit,
 ) {
+    var showGoalPicker by remember { mutableStateOf(false) }
+
+    if (showGoalPicker) {
+        GoalPicker(
+            modifier = Modifier
+                .clip(RoundedCornerShape(MaterialTheme.spacing.default))
+                .background(MaterialTheme.colorScheme.background)
+                .padding(MaterialTheme.spacing.default),
+            value = userData.waterGoal.toInt(),
+            unit = "ml",
+            onValueChange = { onUpdateGoalOfTheDay(it.toFloat()) },
+            onDismissRequest = { showGoalPicker = false }
+        )
+    }
+
     Column(
         modifier = modifier
     ) {
@@ -116,7 +139,7 @@ private fun SettingsContent(
         )
         GeneralSection(
             goalOfTheDay = userData.waterGoal,
-            onGoalOfTheDayClick = onGoalOfTheDayClick
+            onGoalOfTheDayClick = { showGoalPicker = true }
         )
         HorizontalDivider(
             modifier = Modifier.padding(vertical = MaterialTheme.spacing.default)

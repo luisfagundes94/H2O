@@ -7,6 +7,7 @@ import com.luisfagundes.h2o.core.domain.repository.WaterRepository
 import com.luisfagundes.h2o.core.domain.usecase.GetWaterFromToday
 import com.luisfagundes.h2o.core.domain.usecase.GetWaterFromTodayImpl
 import com.luisfagundes.h2o.model.fakeUserData
+import com.luisfagundes.h2o.model.fakeWater
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -28,13 +29,12 @@ class GetWaterFromTodayTest {
 
     @Test
     fun returnsWaterFromToday_whenWaterExists() = runTest {
-        val water = Water.empty()
-        coEvery { waterRepository.getWaterFrom(any()) } returns flowOf(water)
+        coEvery { waterRepository.getWaterFrom(any()) } returns flowOf(fakeWater)
         coEvery { userDataRepository.userData } returns flowOf(fakeUserData)
 
         val result = getWaterFromToday().first()
 
-        assert(result == water)
+        assert(result == fakeWater)
     }
 
     @Test

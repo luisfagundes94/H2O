@@ -59,6 +59,7 @@ wave-animation = { group = "io.github.neo1125", name = "wave", version = "1.0.0"
 mockk = { group = "io.mockk", name = "mockk-android", version.ref = "mockk" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+numberPicker = { group = "com.chargemap.compose", name = "numberpicker", version = "1.0.3" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

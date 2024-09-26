@@ -18,8 +18,7 @@ class H2oPreferencesDataSource @Inject constructor(
         private const val DEFAULT_GOAL = 2000f
     }
 
-    val userData =
-        userPreferences.data.map { data ->
+    val userData = userPreferences.data.map { data ->
             UserData(
                 darkThemeConfig = when (data.darkThemeConfig) {
                     DarkThemeConfigProto.DARK_THEME_CONFIG_LIGHT -> DarkThemeConfig.LIGHT
