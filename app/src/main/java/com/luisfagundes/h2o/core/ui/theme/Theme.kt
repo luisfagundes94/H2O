@@ -129,7 +129,11 @@ fun H2oTheme(
 
     val backgroundTheme =
         when {
-            androidTheme -> if (darkTheme) DarkAndroidBackgroundTheme else LightAndroidBackgroundTheme
+            androidTheme -> if (darkTheme) {
+                DarkAndroidBackgroundTheme
+            } else {
+                LightAndroidBackgroundTheme
+            }
             else -> defaultBackgroundTheme
         }
 

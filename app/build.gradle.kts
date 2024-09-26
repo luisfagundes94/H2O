@@ -75,10 +75,14 @@ protobuf {
 androidComponents {
     onVariants(selector().all()) { variant ->
         afterEvaluate {
-            val protoNameTask = "generate" + variant.name.replaceFirstChar { it.uppercaseChar() } + "Proto"
+            val protoNameTask = "generate" + variant.name.replaceFirstChar {
+                it.uppercaseChar()
+            } + "Proto"
             val protoTask = project.tasks.getByName(protoNameTask) as GenerateProtoTask
 
-            val kspNameTask = "ksp" + variant.name.replaceFirstChar { it.uppercaseChar() } + "Kotlin"
+            val kspNameTask = "ksp" + variant.name.replaceFirstChar {
+                it.uppercaseChar()
+            } + "Kotlin"
             project.tasks.getByName(kspNameTask) {
                 dependsOn(protoTask)
                 (this as org.jetbrains.kotlin.gradle.tasks.AbstractKotlinCompileTool<*>).setSource(
