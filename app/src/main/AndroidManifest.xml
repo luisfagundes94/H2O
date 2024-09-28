@@ -16,7 +16,6 @@
         <activity
             android:name=".main.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.H2o">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".core.data.services.alarm.AlarmReceiver" />
     </application>
 
 </manifest>
