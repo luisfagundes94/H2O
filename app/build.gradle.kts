@@ -131,6 +131,9 @@ dependencies {
     // Number picker
     implementation(libs.numberPicker)
 
+    // Accompanist
+    implementation(libs.accompanist.permissions)
+
     // Testing
     implementation(libs.junit)
     implementation(libs.kotlinx.coroutines.test)

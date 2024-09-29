@@ -60,6 +60,7 @@ mockk = { group = "io.mockk", name = "mockk-android", version.ref = "mockk" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 numberPicker = { group = "com.chargemap.compose", name = "numberpicker", version = "1.0.3" }
+accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version = "0.34.0" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

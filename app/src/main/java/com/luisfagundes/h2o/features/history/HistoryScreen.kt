@@ -27,8 +27,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.luisfagundes.h2o.R
+import com.luisfagundes.h2o.core.designsystem.theme.spacing
 import com.luisfagundes.h2o.core.domain.model.Water
-import com.luisfagundes.h2o.core.ui.theme.spacing
 
 @Composable
 fun HistoryRoute(viewModel: HistoryViewModel = hiltViewModel(), onBackPressed: () -> Unit) {

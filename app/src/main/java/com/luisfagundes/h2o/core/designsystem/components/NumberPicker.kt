@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import com.chargemap.compose.numberpicker.NumberPicker
-import com.luisfagundes.h2o.core.ui.theme.spacing
+import com.luisfagundes.h2o.core.designsystem.theme.spacing
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

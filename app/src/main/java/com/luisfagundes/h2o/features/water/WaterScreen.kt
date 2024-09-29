@@ -39,9 +39,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.luisfagundes.h2o.R
 import com.luisfagundes.h2o.core.designsystem.components.FloatingButton
 import com.luisfagundes.h2o.core.designsystem.components.TopBarNavButton
+import com.luisfagundes.h2o.core.designsystem.theme.spacing
+import com.luisfagundes.h2o.core.designsystem.theme.waterColor
 import com.luisfagundes.h2o.core.domain.model.Water
-import com.luisfagundes.h2o.core.ui.theme.spacing
-import com.luisfagundes.h2o.core.ui.theme.waterColor
 import com.neo.wave.WaveSpeed
 import com.neo.wave.WaveView
 

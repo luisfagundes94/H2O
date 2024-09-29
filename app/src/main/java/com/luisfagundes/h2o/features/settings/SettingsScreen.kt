@@ -43,8 +43,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.luisfagundes.h2o.R
 import com.luisfagundes.h2o.core.common.extensions.getAppVersion
 import com.luisfagundes.h2o.core.designsystem.components.GoalPicker
+import com.luisfagundes.h2o.core.designsystem.theme.spacing
 import com.luisfagundes.h2o.core.domain.model.UserData
-import com.luisfagundes.h2o.core.ui.theme.spacing
 
 @Composable
 fun SettingsRoute(viewModel: SettingsViewModel = hiltViewModel(), onBackPressed: () -> Unit) {

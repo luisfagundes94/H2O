@@ -1,4 +1,4 @@
-package com.luisfagundes.h2o.core.ui.theme
+package com.luisfagundes.h2o.core.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 

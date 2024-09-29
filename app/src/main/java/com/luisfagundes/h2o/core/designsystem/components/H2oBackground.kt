@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.luisfagundes.h2o.core.ui.theme.LocalBackgroundTheme
+import com.luisfagundes.h2o.core.designsystem.theme.LocalBackgroundTheme
 
 @Composable
 fun H2oBackground(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
