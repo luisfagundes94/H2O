@@ -44,5 +44,5 @@ jobs:
         with:
           java-version: 17
 
-      - name: Detekt
+      - name: Ktlint
         run: ./gradlew ktlintCheck
