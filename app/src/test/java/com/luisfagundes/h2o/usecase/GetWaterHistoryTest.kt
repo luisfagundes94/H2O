@@ -54,18 +54,19 @@ class GetWaterHistoryTest {
     }
 
     @Test
-    fun `invoke deletes all entries except today when water history size is greater than one week`() = runTest {
-        val waterHistory = MutableList(7) { fakeWater.copy(date = "2023-10-01") }
-        waterHistory.add(fakeWater.copy(date = currentDate))
+    fun `deletes all entries except today when water history size is greater than one week`() =
+        runTest {
+            val waterHistory = MutableList(7) { fakeWater.copy(date = "2023-10-01") }
+            waterHistory.add(fakeWater.copy(date = currentDate))
 
-        coEvery { repository.getWaterHistory() } returns flowOf(waterHistory)
-        coEvery { repository.deleteAllEntriesExceptToday(any()) } returns Unit
+            coEvery { repository.getWaterHistory() } returns flowOf(waterHistory)
+            coEvery { repository.deleteAllEntriesExceptToday(any()) } returns Unit
 
-        val result = getWaterHistory.invoke().first()
+            val result = getWaterHistory.invoke().first()
 
-        assertEquals(listOf(fakeWater.copy(date = currentDate)), result)
-        coVerify { repository.deleteAllEntriesExceptToday(currentDate) }
-    }
+            assertEquals(listOf(fakeWater.copy(date = currentDate)), result)
+            coVerify { repository.deleteAllEntriesExceptToday(currentDate) }
+        }
 
     @Test
     fun `invoke returns water history when size is less than or equal to one week`() = runTest {
