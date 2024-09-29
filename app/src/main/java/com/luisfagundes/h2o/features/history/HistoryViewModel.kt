@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.stateIn
 
 @HiltViewModel
 class HistoryViewModel @Inject constructor(
-    getWaterHistory: GetWaterHistory
+    getWaterHistory: GetWaterHistory,
 ) : ViewModel() {
     val uiState: StateFlow<HistoryUiState> =
         getWaterHistory.invoke().map {
