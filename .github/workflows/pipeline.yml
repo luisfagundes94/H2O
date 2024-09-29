@@ -29,7 +29,7 @@ jobs:
           java-version: 17
 
       - name: Unit tests
-        run: ./gradlew test
+        run: ./gradlew testDebugUnitTest
 
  code-analyzer:
     name: Run code analyzer
