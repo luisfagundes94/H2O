@@ -62,12 +62,12 @@ class GetWaterHistoryTest {
             waterHistory.add(today)
 
             coEvery { repository.getWaterHistory() } returns flowOf(waterHistory)
-            coEvery { repository.deleteAllEntriesExceptToday(any()) } returns Unit
+            coEvery { repository.deleteOldEntries(any()) } returns Unit
 
             val result = getWaterHistory.invoke().first()
 
             assertEquals(listOf(today), result)
-            coVerify { repository.deleteAllEntriesExceptToday(currentDate) }
+            coVerify { repository.deleteOldEntries(currentDate) }
         }
 
     @Test

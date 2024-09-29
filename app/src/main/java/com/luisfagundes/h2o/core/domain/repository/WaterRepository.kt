@@ -10,5 +10,5 @@ interface WaterRepository {
     suspend fun addWater(water: Water)
     suspend fun updateWater(water: Water): Result<Unit>
     suspend fun deleteWater(water: Water)
-    suspend fun deleteAllEntriesExceptToday(currentDate: String)
+    suspend fun deleteOldEntries(currentDate: String)
 }

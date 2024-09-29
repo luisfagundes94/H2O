@@ -42,7 +42,7 @@ class WaterRepositoryImpl @Inject constructor(
         dao.deleteWater(water.toEntityModel())
     }
 
-    override suspend fun deleteAllEntriesExceptToday(currentDate: String) {
-        dao.deleteAllExceptToday(currentDate)
+    override suspend fun deleteOldEntries(currentDate: String) {
+        dao.deleteOldEntries(currentDate)
     }
 }

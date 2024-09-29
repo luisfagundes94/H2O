@@ -22,7 +22,7 @@ class GetWaterHistoryImpl @Inject constructor(
     override operator fun invoke(): Flow<List<Water>?> = flow {
         val waterHistory = repository.getWaterHistory().first()
         if (waterHistory != null && waterHistory.size > ONE_WEEK) {
-            repository.deleteAllEntriesExceptToday(currentDate = getCurrentDate())
+            repository.deleteOldEntries(currentDate = getCurrentDate())
             emit(waterHistory.filter { it.date == getCurrentDate() })
         } else {
             emit(waterHistory)

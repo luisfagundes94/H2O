@@ -27,5 +27,5 @@ interface WaterDao {
     suspend fun deleteWater(water: WaterEntity)
 
     @Query("DELETE FROM water WHERE date != :currentDate")
-    suspend fun deleteAllExceptToday(currentDate: String)
+    suspend fun deleteOldEntries(currentDate: String)
 }
