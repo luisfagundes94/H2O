@@ -23,7 +23,7 @@ class GetWaterHistoryTest {
     private val currentDate = getCurrentDate()
 
     @Test
-    fun `invoke returns water history`() = runTest {
+    fun `returns water history`() = runTest {
         val waterHistory = listOf(
             fakeWater.copy(consumed = 500f, goal = 2000f),
             fakeWater.copy(consumed = 900f, goal = 5000f)
@@ -36,7 +36,7 @@ class GetWaterHistoryTest {
     }
 
     @Test
-    fun `invoke returns empty list when no water history`() = runTest {
+    fun `returns empty list when no water history`() = runTest {
         coEvery { repository.getWaterHistory() } returns flowOf(emptyList())
 
         val result = getWaterHistory.invoke().first()
@@ -45,7 +45,7 @@ class GetWaterHistoryTest {
     }
 
     @Test
-    fun `invoke returns null when repository returns null`() = runTest {
+    fun `returns null when repository returns null`() = runTest {
         coEvery { repository.getWaterHistory() } returns flowOf(null)
 
         val result = getWaterHistory.invoke().toList()
@@ -69,7 +69,7 @@ class GetWaterHistoryTest {
         }
 
     @Test
-    fun `invoke returns water history when size is less than or equal to one week`() = runTest {
+    fun `returns water history when size is less than or equal to one week`() = runTest {
         val waterHistory = List(7) { fakeWater.copy(date = currentDate) }
         coEvery { repository.getWaterHistory() } returns flowOf(waterHistory)
 
@@ -79,7 +79,7 @@ class GetWaterHistoryTest {
     }
 
     @Test
-    fun `invoke returns empty list when water history is empty`() = runTest {
+    fun `returns empty list when water history is empty`() = runTest {
         coEvery { repository.getWaterHistory() } returns flowOf(emptyList())
 
         val result = getWaterHistory.invoke().first()
@@ -88,7 +88,7 @@ class GetWaterHistoryTest {
     }
 
     @Test
-    fun `invoke returns null when water history is null`() = runTest {
+    fun `returns null when water history is null`() = runTest {
         coEvery { repository.getWaterHistory() } returns flowOf(null)
 
         val result = getWaterHistory.invoke().toList()
