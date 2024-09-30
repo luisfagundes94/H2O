@@ -8,6 +8,7 @@ import com.luisfagundes.h2o.UserPreferences
 import com.luisfagundes.h2o.copy
 import com.luisfagundes.h2o.core.domain.model.DarkThemeConfig
 import com.luisfagundes.h2o.core.domain.model.UserData
+import com.luisfagundes.h2o.core.domain.model.WaterReminder
 import javax.inject.Inject
 import kotlinx.coroutines.flow.map
 
@@ -16,6 +17,9 @@ class H2oPreferencesDataSource @Inject constructor(
 ) {
     companion object {
         private const val DEFAULT_GOAL = 2000f
+        private const val DEFAULT_START_HOUR = 9
+        private const val DEFAULT_END_HOUR = 22
+        private const val ZERO = 0
     }
 
     val userData = userPreferences.data.map { data ->
@@ -26,9 +30,15 @@ class H2oPreferencesDataSource @Inject constructor(
                 else -> DarkThemeConfig.FOLLOW_SYSTEM
             },
             useDynamicColor = data.useDynamicColor,
-            waterGoal = if (data.goalOfTheDay == 0f) DEFAULT_GOAL else data.goalOfTheDay,
-            waterReminderInterval = data.waterReminderInterval,
-            notificationEnabled = data.notificationEnabled
+            notificationEnabled = data.notificationEnabled,
+            goalOfTheDay = data.goalOfTheDay.takeIf { it > ZERO } ?: DEFAULT_GOAL,
+            waterReminder = with(data.waterReminder) {
+                WaterReminder(
+                    startHour = startHour.takeIf { it > ZERO } ?: DEFAULT_START_HOUR,
+                    endHour = endHour.takeIf { it > ZERO } ?: DEFAULT_END_HOUR,
+                    interval = interval.takeIf { it > ZERO } ?: DEFAULT_END_HOUR
+                )
+            }
         )
     }
 
@@ -36,12 +46,20 @@ class H2oPreferencesDataSource @Inject constructor(
         updatePreferences { it.copy { this.darkThemeConfig = darkThemeConfig.toProto() } }
     }
 
-    suspend fun setGoalOfTheDay(goal: Float) {
-        updatePreferences { it.copy { this.goalOfTheDay = goal } }
+    suspend fun setWaterReminder(waterReminder: WaterReminder) {
+        updatePreferences {
+            it.copy {
+                this.waterReminder = it.waterReminder.copy {
+                    this.startHour = waterReminder.startHour
+                    this.endHour = waterReminder.endHour
+                    this.interval = waterReminder.interval
+                }
+            }
+        }
     }
 
-    suspend fun setWaterReminderInterval(interval: Float) {
-        updatePreferences { it.copy { this.waterReminderInterval = interval } }
+    suspend fun setGoalOfTheDay(goal: Float) {
+        updatePreferences { it.copy { this.goalOfTheDay = goal } }
     }
 
     suspend fun setDynamicColorPreference(useDynamicColor: Boolean) {

@@ -2,8 +2,8 @@ package com.luisfagundes.h2o.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.luisfagundes.h2o.core.domain.model.HydrationReminder
 import com.luisfagundes.h2o.core.domain.model.UserData
+import com.luisfagundes.h2o.core.domain.model.WaterReminder
 import com.luisfagundes.h2o.core.domain.repository.UserDataRepository
 import com.luisfagundes.h2o.core.domain.usecase.StartWaterReminder
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,12 +29,12 @@ class MainActivityViewModel @Inject constructor(
         )
 
     fun setWaterReminder() = viewModelScope.launch {
-        val hydrationReminder = HydrationReminder(
+        val waterReminder = WaterReminder(
             startHour = 9,
             endHour = 22,
             interval = 3
         )
-        startWaterReminder(hydrationReminder)
+        startWaterReminder(waterReminder)
     }
 }
 

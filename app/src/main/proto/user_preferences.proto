@@ -1,14 +1,15 @@
 syntax = "proto3";
 
 import "dark_theme_config.proto";
+import "water_reminder.proto";
 
 option java_package = "com.luisfagundes.h2o";
 option java_multiple_files = true;
 
 message UserPreferences {
     DarkThemeConfigProto dark_theme_config = 1;
-    bool use_dynamic_color = 2;
-    float goal_of_the_day = 3;
-    float water_reminder_interval = 4;
-    bool notification_enabled = 5;
+    WaterReminder water_reminder = 2;
+    bool use_dynamic_color = 3;
+    bool notification_enabled = 4;
+    float goal_of_the_day = 5;
 }

@@ -5,6 +5,7 @@ import com.luisfagundes.h2o.core.domain.repository.UserDataRepository
 import com.luisfagundes.h2o.core.testing.MainDispatcherRule
 import com.luisfagundes.h2o.features.settings.SettingsUiState
 import com.luisfagundes.h2o.features.settings.SettingsViewModel
+import com.luisfagundes.h2o.features.settings.mapper.toSettingsUiState
 import com.luisfagundes.h2o.model.fakeUserData
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -41,7 +42,7 @@ class SettingsViewModelTest {
         viewModel.getUserData()
 
         viewModel.uiState.test {
-            assert(awaitItem() == SettingsUiState.Success(fakeUserData))
+            assert(awaitItem() == fakeUserData.toSettingsUiState())
         }
     }
 

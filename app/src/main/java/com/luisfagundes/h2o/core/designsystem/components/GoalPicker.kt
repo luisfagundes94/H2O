@@ -3,18 +3,18 @@ package com.luisfagundes.h2o.core.designsystem.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.material3.BasicAlertDialog
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.window.Dialog
 import com.chargemap.compose.numberpicker.NumberPicker
+import com.luisfagundes.h2o.R
 import com.luisfagundes.h2o.core.designsystem.theme.spacing
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GoalPicker(
     modifier: Modifier = Modifier,
@@ -23,7 +23,7 @@ fun GoalPicker(
     onValueChange: (Int) -> Unit,
     onDismissRequest: () -> Unit
 ) {
-    BasicAlertDialog(
+    Dialog(
         onDismissRequest = onDismissRequest
     ) {
         Column(
@@ -32,7 +32,7 @@ fun GoalPicker(
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.default)
         ) {
             Text(
-                text = "Select your goal",
+                text = stringResource(R.string.select_your_goal),
                 style = MaterialTheme.typography.titleMedium
             )
             Row(

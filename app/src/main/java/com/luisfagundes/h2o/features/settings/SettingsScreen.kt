@@ -2,12 +2,12 @@ package com.luisfagundes.h2o.features.settings
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -23,7 +23,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -44,7 +43,11 @@ import com.luisfagundes.h2o.R
 import com.luisfagundes.h2o.core.common.extensions.getAppVersion
 import com.luisfagundes.h2o.core.designsystem.components.GoalPicker
 import com.luisfagundes.h2o.core.designsystem.theme.spacing
-import com.luisfagundes.h2o.core.domain.model.UserData
+import com.luisfagundes.h2o.features.settings.components.DrinkingSchedule
+import com.luisfagundes.h2o.features.settings.components.GoalOfTheDay
+import com.luisfagundes.h2o.features.settings.components.WaterReminder
+import com.luisfagundes.h2o.features.settings.model.AppSettings
+import com.luisfagundes.h2o.features.settings.model.GeneralSettings
 
 @Composable
 fun SettingsRoute(viewModel: SettingsViewModel = hiltViewModel(), onBackPressed: () -> Unit) {
@@ -56,7 +59,11 @@ fun SettingsRoute(viewModel: SettingsViewModel = hiltViewModel(), onBackPressed:
             .padding(MaterialTheme.spacing.default),
         uiState = uiState,
         onBackPressed = onBackPressed,
-        onUpdateGoalOfTheDay = viewModel::updateGoalOfTheDay
+        onChangeGoalOfTheDay = viewModel::updateGoalOfTheDay,
+        onChangeNotificationToggle = viewModel::updateNotificationToggle,
+        onChangeStartHour = { },
+        onChangeEndHour = { },
+        onChangeInterval = { }
     )
 
     LaunchedEffect(Unit) {
@@ -70,7 +77,11 @@ private fun SettingsScreen(
     modifier: Modifier,
     uiState: SettingsUiState,
     onBackPressed: () -> Unit,
-    onUpdateGoalOfTheDay: (Float) -> Unit = {}
+    onChangeGoalOfTheDay: (Float) -> Unit,
+    onChangeNotificationToggle: (Boolean) -> Unit,
+    onChangeStartHour: () -> Unit,
+    onChangeEndHour: () -> Unit,
+    onChangeInterval: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -95,10 +106,13 @@ private fun SettingsScreen(
                 is SettingsUiState.Success ->
                     SettingsContent(
                         modifier = Modifier,
-                        userData = uiState.userData,
-                        notificationChecked = uiState.userData.notificationEnabled,
-                        onNotificationCheckedChange = { },
-                        onUpdateGoalOfTheDay = onUpdateGoalOfTheDay
+                        generalSettings = uiState.generalSettings,
+                        appSettings = uiState.appSettings,
+                        onChangeNotificationToggle = onChangeNotificationToggle,
+                        onChangeGoalOfTheDay = onChangeGoalOfTheDay,
+                        onChangeStartHour = onChangeStartHour,
+                        onChangeEndHour = onChangeEndHour,
+                        onChangeInterval = onChangeInterval
                     )
             }
         }
@@ -108,10 +122,13 @@ private fun SettingsScreen(
 @Composable
 private fun SettingsContent(
     modifier: Modifier,
-    userData: UserData,
-    onUpdateGoalOfTheDay: (Float) -> Unit,
-    notificationChecked: Boolean,
-    onNotificationCheckedChange: (Boolean) -> Unit
+    generalSettings: GeneralSettings,
+    appSettings: AppSettings,
+    onChangeGoalOfTheDay: (Float) -> Unit,
+    onChangeNotificationToggle: (Boolean) -> Unit,
+    onChangeStartHour: () -> Unit,
+    onChangeEndHour: () -> Unit,
+    onChangeInterval: () -> Unit
 ) {
     var showGoalPicker by remember { mutableStateOf(false) }
 
@@ -120,10 +137,10 @@ private fun SettingsContent(
             modifier = Modifier
                 .clip(RoundedCornerShape(MaterialTheme.spacing.default))
                 .background(MaterialTheme.colorScheme.background)
-                .padding(MaterialTheme.spacing.default),
-            value = userData.waterGoal.toInt(),
-            unit = "ml",
-            onValueChange = { onUpdateGoalOfTheDay(it.toFloat()) },
+                .padding(MaterialTheme.spacing.large),
+            value = generalSettings.goalOfTheDay.toInt(),
+            unit = stringResource(R.string.ml),
+            onValueChange = { onChangeGoalOfTheDay(it.toFloat()) },
             onDismissRequest = { showGoalPicker = false }
         )
     }
@@ -131,20 +148,23 @@ private fun SettingsContent(
     Column(
         modifier = modifier
     ) {
-        AppSection()
+        AboutSection()
         HorizontalDivider(
             modifier = Modifier.padding(vertical = MaterialTheme.spacing.default)
         )
         GeneralSection(
-            goalOfTheDay = userData.waterGoal,
-            onGoalOfTheDayClick = { showGoalPicker = true }
+            generalSettings = generalSettings,
+            onGoalOfTheDayClick = { showGoalPicker = true },
+            onStartHourClick = onChangeStartHour,
+            onEndHourClick = onChangeEndHour,
+            onIntervalClick = onChangeInterval
         )
         HorizontalDivider(
             modifier = Modifier.padding(vertical = MaterialTheme.spacing.default)
         )
         AppSettingsSection(
-            notificationChecked = notificationChecked,
-            onNotificationCheckedChange = onNotificationCheckedChange
+            appSettings = appSettings,
+            onNotificationCheckedChange = onChangeNotificationToggle
         )
         HorizontalDivider(
             modifier = Modifier.padding(vertical = MaterialTheme.spacing.default)
@@ -158,7 +178,7 @@ private fun SettingsContent(
 }
 
 @Composable
-private fun AppSection() {
+private fun AboutSection() {
     val context = LocalContext.current
     val versionName = "v${context.getAppVersion()}"
 
@@ -187,74 +207,59 @@ private fun AppSection() {
 @Composable
 private fun GeneralSection(
     modifier: Modifier = Modifier,
-    goalOfTheDay: Float,
-    onGoalOfTheDayClick: (Float) -> Unit
+    generalSettings: GeneralSettings,
+    onGoalOfTheDayClick: (Float) -> Unit,
+    onStartHourClick: () -> Unit,
+    onEndHourClick: () -> Unit,
+    onIntervalClick: () -> Unit
 ) {
     Column(
-        modifier = modifier
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.default)
     ) {
         Text(
             text = stringResource(R.string.general_section_title),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold
         )
-        Spacer(Modifier.height(MaterialTheme.spacing.default))
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text("Goal of the day")
-            Spacer(Modifier.weight(1f))
-            TextButton(
-                onClick = { onGoalOfTheDayClick(goalOfTheDay) }
-            ) {
-                Text(
-                    text = "${goalOfTheDay.toInt()} ml",
-                    color = MaterialTheme.colorScheme.primary
-                )
-            }
-        }
+        GoalOfTheDay(
+            goal = generalSettings.goalOfTheDay,
+            onGoalClick = onGoalOfTheDayClick
+        )
+        DrinkingSchedule(
+            onStartHourClick = onStartHourClick,
+            onEndHourClick = onEndHourClick
+        )
+        WaterReminder(
+            onIntervalClick = onIntervalClick
+        )
     }
 }
 
 @Composable
 private fun AppSettingsSection(
     modifier: Modifier = Modifier,
-    notificationChecked: Boolean,
+    appSettings: AppSettings,
     onNotificationCheckedChange: (Boolean) -> Unit
 ) {
     Column(
-        modifier = modifier
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.default)
     ) {
         Text(
             text = stringResource(R.string.app_settings),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold
         )
-        Spacer(Modifier.height(MaterialTheme.spacing.default))
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(stringResource(R.string.notification))
             Spacer(Modifier.weight(1f))
             Switch(
-                checked = notificationChecked,
+                checked = appSettings.notificationEnabled,
                 onCheckedChange = onNotificationCheckedChange
             )
-        }
-        Spacer(Modifier.height(MaterialTheme.spacing.default))
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(stringResource(R.string.time_reminder))
-            Spacer(Modifier.weight(1f))
-            TextButton(
-                onClick = {}
-            ) {
-                Text(
-                    text = "Every 3 hours",
-                    color = MaterialTheme.colorScheme.primary
-                )
-            }
         }
     }
 }

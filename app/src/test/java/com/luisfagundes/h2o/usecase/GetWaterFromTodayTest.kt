@@ -44,7 +44,7 @@ class GetWaterFromTodayTest {
 
         val result = getWaterFromToday().first()
 
-        assert(result.goal == fakeUserData.waterGoal)
+        assert(result.goal == fakeUserData.goalOfTheDay)
         coVerify { waterRepository.addWater(any()) }
     }
 

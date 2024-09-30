@@ -2,8 +2,10 @@ package com.luisfagundes.h2o.features.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.luisfagundes.h2o.core.domain.model.UserData
 import com.luisfagundes.h2o.core.domain.repository.UserDataRepository
+import com.luisfagundes.h2o.features.settings.mapper.toSettingsUiState
+import com.luisfagundes.h2o.features.settings.model.AppSettings
+import com.luisfagundes.h2o.features.settings.model.GeneralSettings
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,7 +23,7 @@ class SettingsViewModel @Inject constructor(
         _uiState.value = SettingsUiState.Loading
         userDataRepository.userData
             .collect { userData ->
-                _uiState.value = SettingsUiState.Success(userData)
+                _uiState.value = userData.toSettingsUiState()
             }
     }
 
@@ -36,5 +38,8 @@ class SettingsViewModel @Inject constructor(
 
 sealed interface SettingsUiState {
     data object Loading : SettingsUiState
-    data class Success(val userData: UserData) : SettingsUiState
+    data class Success(
+        val generalSettings: GeneralSettings,
+        val appSettings: AppSettings
+    ) : SettingsUiState
 }

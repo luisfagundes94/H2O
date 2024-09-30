@@ -21,13 +21,13 @@ class GetWaterFromTodayImpl @Inject constructor(
         waterRepository.getWaterFrom(getCurrentDate()),
         userDataRepository.userData
     ) { water, userData ->
-        water?.copy(goal = userData.waterGoal) ?: createAndAddEmptyWater(userData)
+        water?.copy(goal = userData.goalOfTheDay) ?: createAndAddEmptyWater(userData)
     }
 
     private suspend fun createAndAddEmptyWater(userData: UserData): Water {
         val emptyWater = Water.empty().copy(
             date = getCurrentDate(),
-            goal = userData.waterGoal
+            goal = userData.goalOfTheDay
         )
         waterRepository.addWater(emptyWater)
         return emptyWater

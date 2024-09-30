@@ -6,19 +6,14 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.History
-import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -37,9 +32,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.luisfagundes.h2o.R
-import com.luisfagundes.h2o.core.designsystem.components.FloatingButton
+import com.luisfagundes.h2o.core.designsystem.components.AddAndRemoveButtons
 import com.luisfagundes.h2o.core.designsystem.components.TopBarNavButton
-import com.luisfagundes.h2o.core.designsystem.theme.spacing
 import com.luisfagundes.h2o.core.designsystem.theme.waterColor
 import com.luisfagundes.h2o.core.domain.model.Water
 import com.neo.wave.WaveSpeed
@@ -59,7 +53,9 @@ fun WaterRoute(
         onNavigateToHistory = onNavigateToHistory,
         onNavigateToSettings = onNavigateToSettings,
         onAddWater = viewModel::updateWaterConsumed,
-        onRemoveWater = viewModel::updateWaterConsumed
+        onRemoveWater = viewModel::updateWaterConsumed,
+        onStartHourClick = {},
+        onEndHourClick = {}
     )
 }
 
@@ -70,7 +66,9 @@ private fun WaterScreen(
     onAddWater: (water: Water) -> Unit,
     onRemoveWater: (water: Water) -> Unit,
     onNavigateToHistory: () -> Unit = {},
-    onNavigateToSettings: () -> Unit = {}
+    onNavigateToSettings: () -> Unit = {},
+    onStartHourClick: () -> Unit = {},
+    onEndHourClick: () -> Unit = {}
 ) {
     Box(
         modifier = modifier,
@@ -86,7 +84,9 @@ private fun WaterScreen(
                     onAddWater = onAddWater,
                     onRemoveWater = onRemoveWater,
                     onNavigateToHistory = onNavigateToHistory,
-                    onNavigateToSettings = onNavigateToSettings
+                    onNavigateToSettings = onNavigateToSettings,
+                    onStartHourClick = onStartHourClick,
+                    onEndHourClick = onEndHourClick
                 )
         }
     }
@@ -100,7 +100,9 @@ private fun WaterContent(
     onAddWater: (water: Water) -> Unit = {},
     onRemoveWater: (water: Water) -> Unit = {},
     onNavigateToHistory: () -> Unit = {},
-    onNavigateToSettings: () -> Unit = {}
+    onNavigateToSettings: () -> Unit = {},
+    onStartHourClick: () -> Unit = {},
+    onEndHourClick: () -> Unit = {}
 ) {
     val targetProgress = water.consumed / water.goal
     val animatedProgress by animateFloatAsState(
@@ -111,7 +113,7 @@ private fun WaterContent(
         ),
         label = "waterProgress"
     )
-    val extra = 100f
+    val waterAmount = 100f
 
     Scaffold(
         topBar = {
@@ -140,19 +142,12 @@ private fun WaterContent(
             )
         },
         floatingActionButton = {
-            Row {
-                FloatingButton(
-                    onClick = { onAddWater(water.copy(consumed = water.consumed + extra)) },
-                    imageVector = Icons.Default.Add,
-                    imageDescription = stringResource(R.string.add_water_content_description)
-                )
-                Spacer(Modifier.width(MaterialTheme.spacing.default))
-                FloatingButton(
-                    onClick = { onRemoveWater(water.copy(consumed = water.consumed - extra)) },
-                    imageVector = Icons.Default.Remove,
-                    imageDescription = stringResource(R.string.remove_water_content_description)
-                )
-            }
+            AddAndRemoveButtons(
+                water = water,
+                extra = waterAmount,
+                onAddWater = onAddWater,
+                onRemoveWater = onRemoveWater
+            )
         },
         floatingActionButtonPosition = FabPosition.Center
     ) { paddingValues ->

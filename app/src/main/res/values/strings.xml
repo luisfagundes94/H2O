@@ -14,8 +14,13 @@
     <string name="app_settings">APP SETTINGS</string>
     <string name="notification">Notification</string>
     <string name="share_app">Share app</string>
-    <string name="time_reminder">Set time reminder</string>
+    <string name="water_reminder">Set water reminder</string>
     <string name="empty_water_history">No water history yet!</string>
     <string name="water_channel_name">Water Reminder</string>
     <string name="water_channel_description">Channel for water reminder notifications</string>
+    <string name="to">to</string>
+    <string name="drinking_schedule">Drinking schedule</string>
+    <string name="ml">ml</string>
+    <string name="select_your_goal">Select your goal</string>
+    <string name="select_hour">Select hour</string>
 </resources>

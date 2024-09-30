@@ -55,12 +55,12 @@ class UserDataRepositoryTest {
 
     @Test
     fun setWaterReminderInterval_callsPreferencesDataSource() = runTest {
-        val interval = 2f
-        coEvery { preferencesDataSource.setWaterReminderInterval(interval) } returns Unit
+        val hydrationReminder = fakeUserData.waterReminder.copy(interval = 2)
+        coEvery { preferencesDataSource.setWaterReminder(hydrationReminder) } returns Unit
 
-        userDataRepository.setWaterReminderInterval(interval)
+        userDataRepository.setWaterReminder(hydrationReminder)
 
-        coVerify { preferencesDataSource.setWaterReminderInterval(interval) }
+        coVerify { preferencesDataSource.setWaterReminder(hydrationReminder) }
     }
 
     @Test

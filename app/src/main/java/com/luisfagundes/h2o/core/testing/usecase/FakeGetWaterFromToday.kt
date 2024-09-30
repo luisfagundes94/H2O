@@ -17,7 +17,7 @@ class FakeGetWaterFromToday : GetWaterFromToday {
         if (water == null) {
             val emptyWater = Water.empty().copy(
                 date = getCurrentDate(),
-                goal = userData.waterGoal
+                goal = userData.goalOfTheDay
             )
             waterFlow.tryEmit(emptyWater)
         } else {
