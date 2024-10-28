@@ -14,6 +14,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 @HiltViewModel
@@ -41,12 +42,15 @@ class MainViewModel @Inject constructor(
     }
 
     fun setDefaultWaterReminder() = viewModelScope.launch {
+        if (userDataRepository.userData.first().appLaunchedBefore) return@launch
+
         val waterReminder = WaterReminder(
             startHour = DEFAULT_START_HOUR,
             endHour = DEFAULT_END_HOUR,
             interval = DEFAULT_INTERVAL
         )
         updateWaterReminder(waterReminder)
+        userDataRepository.setAppLaunchedBefore()
     }
 }
 

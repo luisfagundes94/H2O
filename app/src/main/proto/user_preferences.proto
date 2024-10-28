@@ -11,4 +11,5 @@ message UserPreferences {
     bool use_dynamic_color = 3;
     bool notification_enabled = 4;
     float goal_of_the_day = 5;
+    bool app_launched_before = 6;
 }

@@ -69,6 +69,10 @@ class MainViewModelTest {
 
     @Test
     fun `setDefaultWaterReminder should call updateWaterReminder with default values`() = runTest {
+        coEvery { userDataRepository.userData } returns flowOf(
+            fakeUserData.copy(appLaunchedBefore = false)
+        )
+
         viewModel.setDefaultWaterReminder()
 
         val defaultReminder = WaterReminder(
@@ -78,5 +82,16 @@ class MainViewModelTest {
         )
 
         coVerify { updateWaterReminder(defaultReminder) }
+        coVerify { userDataRepository.setAppLaunchedBefore() }
     }
+
+    @Test
+    fun `setDefaultWaterReminder should not call updateWaterReminder if app launched before`() =
+        runTest {
+            coEvery { userDataRepository.userData } returns flowOf(fakeUserData)
+
+            viewModel.setDefaultWaterReminder()
+
+            coVerify(exactly = 0) { updateWaterReminder(any()) }
+        }
 }

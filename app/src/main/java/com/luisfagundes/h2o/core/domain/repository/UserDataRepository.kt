@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserDataRepository {
     val userData: Flow<UserData>
+    suspend fun setAppLaunchedBefore()
     suspend fun setDarkMode(enabled: Boolean)
     suspend fun setDynamicColorPreference(useDynamicColor: Boolean)
     suspend fun setNotificationEnabled(enabled: Boolean)

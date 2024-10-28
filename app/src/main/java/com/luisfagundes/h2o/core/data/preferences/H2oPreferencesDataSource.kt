@@ -23,6 +23,7 @@ class H2oPreferencesDataSource @Inject constructor(
 
     val userData = userPreferences.data.map { data ->
         UserData(
+            appLaunchedBefore = data.appLaunchedBefore,
             darkModeEnabled = data.darkModeEnabled,
             useDynamicColor = data.useDynamicColor,
             notificationEnabled = data.notificationEnabled,
@@ -35,6 +36,10 @@ class H2oPreferencesDataSource @Inject constructor(
                 )
             }
         )
+    }
+
+    suspend fun setAppLaunchedBefore() {
+        updatePreferences { it.copy { this.appLaunchedBefore = true } }
     }
 
     suspend fun setDarkMode(enabled: Boolean) {

@@ -13,6 +13,10 @@ class UserDataRepositoryImpl @Inject constructor(
     override val userData: Flow<UserData>
         get() = preferencesDataSource.userData
 
+    override suspend fun setAppLaunchedBefore() {
+        preferencesDataSource.setAppLaunchedBefore()
+    }
+
     override suspend fun setDarkMode(enabled: Boolean) {
         preferencesDataSource.setDarkMode(enabled)
     }
