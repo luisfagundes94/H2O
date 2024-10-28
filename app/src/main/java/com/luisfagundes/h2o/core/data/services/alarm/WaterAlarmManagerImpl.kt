@@ -5,20 +5,28 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import com.luisfagundes.h2o.core.domain.model.WaterReminder
+import com.luisfagundes.h2o.core.domain.manager.WaterAlarmManager
 import java.util.Calendar
 import javax.inject.Inject
 
-class AlarmService @Inject constructor(
+private const val REQUEST_CODE = 0
+private const val MILLISECONDS_IN_HOUR = 60 * 60 * 1000L
+
+class WaterAlarmManagerImpl @Inject constructor(
     private val context: Context
-) {
+) : WaterAlarmManager {
     companion object {
-        private const val REQUEST_CODE = 0
-        private const val MILLISECONDS_IN_HOUR = 60 * 60 * 1000L
+        const val ACTION_WATER_REMINDER = "com.luisfagundes.h2o.ACTION_WATER_REMINDER"
     }
 
-    fun setRepeatingAlarm(waterReminder: WaterReminder) {
+    override fun setRepeatingAlarm(waterReminder: WaterReminder) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, AlarmReceiver::class.java)
+        val intent = Intent(context, WaterAlarmReceiver::class.java).apply {
+            action = ACTION_WATER_REMINDER
+            putExtra("startHour", waterReminder.startHour)
+            putExtra("endHour", waterReminder.endHour)
+            putExtra("interval", waterReminder.interval)
+        }
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             REQUEST_CODE,
@@ -40,17 +48,17 @@ class AlarmService @Inject constructor(
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,
-            intervalMillis,
+            80_000L,
             pendingIntent
         )
     }
 
-    fun cancelRepeatingAlarm() {
+    override fun cancelRepeatingAlarm() {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, AlarmReceiver::class.java)
+        val intent = Intent(context, WaterAlarmReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(
             context,
-            0,
+            REQUEST_CODE,
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )

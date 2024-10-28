@@ -77,6 +77,8 @@ class MainActivity : ComponentActivity() {
                 H2oApp()
             }
         }
+
+        viewModel.setWaterReminder()
     }
 }
 

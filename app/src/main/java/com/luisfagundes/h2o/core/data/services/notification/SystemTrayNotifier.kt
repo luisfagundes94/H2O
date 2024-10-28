@@ -13,6 +13,7 @@ import androidx.core.app.ActivityCompat.checkSelfPermission
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.luisfagundes.h2o.R
+import com.luisfagundes.h2o.core.domain.notification.WaterNotifier
 import com.luisfagundes.h2o.main.MainActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -25,7 +26,7 @@ private const val REQUEST_CODE = 0
 @Singleton
 class SystemTrayNotifier @Inject constructor(
     @ApplicationContext private val context: Context
-) : Notifier {
+) : WaterNotifier {
     override fun remindToDrinkWater() = with(context) {
         if (checkSelfPermission(this, permission.POST_NOTIFICATIONS) != PERMISSION_GRANTED) {
             return

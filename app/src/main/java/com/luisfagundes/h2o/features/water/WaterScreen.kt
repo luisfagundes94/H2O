@@ -42,8 +42,8 @@ import com.neo.wave.WaveView
 @Composable
 fun WaterRoute(
     viewModel: WaterViewModel = hiltViewModel(),
-    onNavigateToHistory: () -> Unit = {},
-    onNavigateToSettings: () -> Unit = {}
+    onNavigateToHistory: () -> Unit,
+    onNavigateToSettings: () -> Unit
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -63,8 +63,8 @@ private fun WaterScreen(
     uiState: WaterUiState,
     onAddWater: (water: Water) -> Unit,
     onRemoveWater: (water: Water) -> Unit,
-    onNavigateToHistory: () -> Unit = {},
-    onNavigateToSettings: () -> Unit = {}
+    onNavigateToHistory: () -> Unit,
+    onNavigateToSettings: () -> Unit
 ) {
     Box(
         modifier = modifier,
@@ -91,10 +91,10 @@ private fun WaterScreen(
 private fun WaterContent(
     modifier: Modifier,
     water: Water,
-    onAddWater: (water: Water) -> Unit = {},
-    onRemoveWater: (water: Water) -> Unit = {},
-    onNavigateToHistory: () -> Unit = {},
-    onNavigateToSettings: () -> Unit = {}
+    onAddWater: (water: Water) -> Unit,
+    onRemoveWater: (water: Water) -> Unit,
+    onNavigateToHistory: () -> Unit,
+    onNavigateToSettings: () -> Unit
 ) {
     val targetProgress = water.consumed / water.goal
     val animatedProgress by animateFloatAsState(

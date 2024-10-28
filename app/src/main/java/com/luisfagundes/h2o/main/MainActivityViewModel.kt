@@ -32,7 +32,7 @@ class MainActivityViewModel @Inject constructor(
         val waterReminder = WaterReminder(
             startHour = 9,
             endHour = 22,
-            interval = 3
+            interval = 1
         )
         startWaterReminder(waterReminder)
     }

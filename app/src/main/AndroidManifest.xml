@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".core.data.services.alarm.AlarmReceiver" />
+        <receiver android:name=".core.data.services.alarm.WaterAlarmReceiver" />
     </application>
 
 </manifest>
