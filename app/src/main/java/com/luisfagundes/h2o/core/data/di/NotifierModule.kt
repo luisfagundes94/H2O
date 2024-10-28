@@ -13,9 +13,7 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object NotifierModule {
     @Provides
-    fun provideWaterNotifier(
-        @ApplicationContext context: Context
-    ): WaterNotifier {
+    fun provideWaterNotifier(@ApplicationContext context: Context): WaterNotifier {
         return SystemTrayNotifier(context)
     }
 }

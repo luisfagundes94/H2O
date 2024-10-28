@@ -4,8 +4,8 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import com.luisfagundes.h2o.core.domain.model.WaterReminder
 import com.luisfagundes.h2o.core.domain.manager.WaterAlarmManager
+import com.luisfagundes.h2o.core.domain.model.WaterReminder
 import java.util.Calendar
 import javax.inject.Inject
 
