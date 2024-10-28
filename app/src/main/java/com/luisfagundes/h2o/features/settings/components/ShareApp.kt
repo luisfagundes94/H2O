@@ -12,12 +12,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.luisfagundes.h2o.R
+import com.luisfagundes.h2o.core.common.utils.AppConstants.GITHUB_APP_URL
 
 @Composable
 fun ShareApp() {
     val context = LocalContext.current
+
     Text(
-        modifier = Modifier.clickable { openBrowser(context) },
+        modifier = Modifier.clickable { context.openBrowserWithUrl(GITHUB_APP_URL) },
         text = stringResource(R.string.share_app),
         color = MaterialTheme.colorScheme.primary,
         fontWeight = FontWeight.Bold,
@@ -25,10 +27,10 @@ fun ShareApp() {
     )
 }
 
-private fun openBrowser(context: Context) {
+private fun Context.openBrowserWithUrl(url: String) {
     val intent = Intent(
         Intent.ACTION_VIEW,
-        Uri.parse("https://github.com/luisfagundes94/H2O")
+        Uri.parse(url)
     )
-    context.startActivity(intent)
+    this.startActivity(intent)
 }
