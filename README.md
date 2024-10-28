@@ -56,9 +56,6 @@ This project uses many of the popular libraries, plugins and tools of the androi
 - [Coil](https://coil-kt.github.io/coil/compose/) - An image loading library for Android backed by Kotlin Coroutines
 - [Navigation](https://developer.android.com/develop/ui/compose/navigation) - The Navigation component provides support for Jetpack Compose applications. You can navigate between composables while taking advantage of the Navigation component's infrastructure and features.
 
-### Accompanist
-- [SwipeRefresh](https://google.github.io/accompanist/swiperefresh/) - A library which provides a layout which provides the swipe-to-refresh UX pattern, similar to Android's SwipeRefreshLayout.
-
 ### Jetpack
 - [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) - Jetpack DataStore is a data storage solution that allows you to store key-value pairs or typed objects with protocol buffers.
 - [Android KTX](https://developer.android.com/kotlin/ktx.html) - Provide concise, idiomatic Kotlin to Jetpack and Android platform APIs.
@@ -79,3 +76,6 @@ This project uses many of the popular libraries, plugins and tools of the androi
 - [Mockk](https://mockk.io/) - A modern Mockk library for UnitTest.
 - [Turbine](https://github.com/cashapp/turbine) - Small testing library for kotlinx.coroutines Flow
 - [Coroutine-Test](https://github.com/Kotlin/kotlinx.coroutines/tree/master/kotlinx-coroutines-test) - Provides testing utilities for effectively testing coroutines.
+
+### Tools
+- [Ktlint](https://github.com/pinterest/ktlint) - A Kotlin linter with built-in formatter
