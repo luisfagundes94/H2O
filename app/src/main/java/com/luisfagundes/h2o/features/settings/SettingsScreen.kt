@@ -1,7 +1,6 @@
 package com.luisfagundes.h2o.features.settings
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -44,6 +43,7 @@ import com.luisfagundes.h2o.core.designsystem.components.GoalPicker
 import com.luisfagundes.h2o.core.designsystem.theme.spacing
 import com.luisfagundes.h2o.features.settings.components.DrinkingSchedule
 import com.luisfagundes.h2o.features.settings.components.GoalOfTheDay
+import com.luisfagundes.h2o.features.settings.components.ShareApp
 import com.luisfagundes.h2o.features.settings.components.WaterReminder
 import com.luisfagundes.h2o.features.settings.model.AppSettings
 import com.luisfagundes.h2o.features.settings.model.GeneralSettings
@@ -164,11 +164,7 @@ private fun SettingsContent(
         HorizontalDivider(
             modifier = Modifier.padding(vertical = MaterialTheme.spacing.default)
         )
-        Text(
-            modifier = Modifier.clickable { },
-            text = stringResource(R.string.share_app),
-            color = MaterialTheme.colorScheme.primary
-        )
+        ShareApp()
     }
 }
 
@@ -225,7 +221,7 @@ private fun GeneralSection(
             startHour = generalSettings.startHour,
             endHour = generalSettings.endHour,
             onStartHourClick = onStartHourClick,
-            onEndHourClick = onEndHourClick,
+            onEndHourClick = onEndHourClick
         )
         WaterReminder(
             onIntervalClick = onIntervalClick
