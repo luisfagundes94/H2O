@@ -25,7 +25,6 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -65,10 +64,6 @@ fun SettingsRoute(viewModel: SettingsViewModel = hiltViewModel(), onBackPressed:
         onChangeEndHour = { },
         onChangeInterval = { }
     )
-
-    LaunchedEffect(Unit) {
-        viewModel.getUserData()
-    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -48,7 +48,7 @@ class WaterAlarmManagerImpl @Inject constructor(
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,
-            80_000L,
+            intervalMillis,
             pendingIntent
         )
     }

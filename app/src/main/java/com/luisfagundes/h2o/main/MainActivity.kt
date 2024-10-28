@@ -27,14 +27,14 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val viewModel: MainActivityViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
 
-        var uiState: MainActivityUiState by mutableStateOf(MainActivityUiState.Loading)
+        var uiState: MainUiState by mutableStateOf(MainUiState.Loading)
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -46,8 +46,8 @@ class MainActivity : ComponentActivity() {
 
         splashScreen.setKeepOnScreenCondition {
             when (uiState) {
-                MainActivityUiState.Loading -> true
-                is MainActivityUiState.Success -> false
+                MainUiState.Loading -> true
+                is MainUiState.Success -> false
             }
         }
 
@@ -78,14 +78,14 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        viewModel.setWaterReminder()
+        viewModel.setDefaultWaterReminder()
     }
 }
 
 @Composable
-private fun shouldUseDarkTheme(uiState: MainActivityUiState): Boolean = when (uiState) {
-    MainActivityUiState.Loading -> isSystemInDarkTheme()
-    is MainActivityUiState.Success ->
+private fun shouldUseDarkTheme(uiState: MainUiState): Boolean = when (uiState) {
+    MainUiState.Loading -> isSystemInDarkTheme()
+    is MainUiState.Success ->
         when (uiState.userData.darkThemeConfig) {
             DarkThemeConfig.FOLLOW_SYSTEM -> isSystemInDarkTheme()
             DarkThemeConfig.LIGHT -> false

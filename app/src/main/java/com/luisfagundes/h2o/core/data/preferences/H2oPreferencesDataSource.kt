@@ -6,6 +6,10 @@ import androidx.datastore.core.IOException
 import com.luisfagundes.h2o.DarkThemeConfigProto
 import com.luisfagundes.h2o.UserPreferences
 import com.luisfagundes.h2o.copy
+import com.luisfagundes.h2o.core.common.utils.AppConstants.DEFAULT_END_HOUR
+import com.luisfagundes.h2o.core.common.utils.AppConstants.DEFAULT_GOAL
+import com.luisfagundes.h2o.core.common.utils.AppConstants.DEFAULT_INTERVAL
+import com.luisfagundes.h2o.core.common.utils.AppConstants.DEFAULT_START_HOUR
 import com.luisfagundes.h2o.core.domain.model.DarkThemeConfig
 import com.luisfagundes.h2o.core.domain.model.UserData
 import com.luisfagundes.h2o.core.domain.model.WaterReminder
@@ -16,9 +20,6 @@ class H2oPreferencesDataSource @Inject constructor(
     private val userPreferences: DataStore<UserPreferences>
 ) {
     companion object {
-        private const val DEFAULT_GOAL = 2000f
-        private const val DEFAULT_START_HOUR = 9
-        private const val DEFAULT_END_HOUR = 22
         private const val ZERO = 0
     }
 
@@ -36,7 +37,7 @@ class H2oPreferencesDataSource @Inject constructor(
                 WaterReminder(
                     startHour = startHour.takeIf { it > ZERO } ?: DEFAULT_START_HOUR,
                     endHour = endHour.takeIf { it > ZERO } ?: DEFAULT_END_HOUR,
-                    interval = interval.takeIf { it > ZERO } ?: DEFAULT_END_HOUR
+                    interval = interval.takeIf { it > ZERO } ?: DEFAULT_INTERVAL
                 )
             }
         )

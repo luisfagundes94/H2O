@@ -17,6 +17,7 @@ import org.junit.Rule
 import org.junit.Test
 
 class SettingsViewModelTest {
+
     @get:Rule
     val dispatcher = MainDispatcherRule()
 
@@ -29,25 +30,23 @@ class SettingsViewModelTest {
     }
 
     @Test
-    fun uiState_isLoadingInitially() = runTest {
-        coEvery { userDataRepository.userData } returns flowOf(fakeUserData)
-
+    fun `uiState should initially emit loading`() = runTest {
         assert(viewModel.uiState.value is SettingsUiState.Loading)
     }
 
     @Test
-    fun uiState_updatesWithSuccess_whenUserDataIsAvailable() = runTest {
+    fun `uiState updates with success when userData is available`() = runTest {
         coEvery { userDataRepository.userData } returns flowOf(fakeUserData)
 
         viewModel.getUserData()
 
         viewModel.uiState.test {
-            assert(awaitItem() == fakeUserData.toSettingsUiState())
+            assert(fakeUserData.toSettingsUiState() == awaitItem())
         }
     }
 
     @Test
-    fun updateNotificationToggle_callsRepository() = runTest {
+    fun `update notification toggle calls repository`() = runTest {
         coEvery { userDataRepository.setNotificationEnabled(any()) } returns Unit
 
         viewModel.updateNotificationToggle(true)
@@ -56,7 +55,7 @@ class SettingsViewModelTest {
     }
 
     @Test
-    fun updateGoalOfTheDay_callsRepository() = runTest {
+    fun `update goalOfTheDay calls repository`() = runTest {
         coEvery { userDataRepository.setGoalOfTheDay(any()) } returns Unit
 
         viewModel.updateGoalOfTheDay(2000f)

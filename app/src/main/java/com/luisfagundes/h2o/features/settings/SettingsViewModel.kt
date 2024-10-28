@@ -19,6 +19,10 @@ class SettingsViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<SettingsUiState>(SettingsUiState.Loading)
     val uiState = _uiState.asStateFlow()
 
+    init {
+        getUserData()
+    }
+
     fun getUserData() = viewModelScope.launch {
         _uiState.value = SettingsUiState.Loading
         userDataRepository.userData
