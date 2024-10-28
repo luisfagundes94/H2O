@@ -222,8 +222,10 @@ private fun GeneralSection(
             onGoalClick = onGoalOfTheDayClick
         )
         DrinkingSchedule(
+            startHour = generalSettings.startHour,
+            endHour = generalSettings.endHour,
             onStartHourClick = onStartHourClick,
-            onEndHourClick = onEndHourClick
+            onEndHourClick = onEndHourClick,
         )
         WaterReminder(
             onIntervalClick = onIntervalClick

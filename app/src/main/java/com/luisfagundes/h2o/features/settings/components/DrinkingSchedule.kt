@@ -9,10 +9,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.luisfagundes.h2o.R
+import com.luisfagundes.h2o.features.settings.model.GeneralSettings
 
 @Composable
 fun DrinkingSchedule(
     modifier: Modifier = Modifier,
+    startHour: Int,
+    endHour: Int,
     onStartHourClick: () -> Unit,
     onEndHourClick: () -> Unit
 ) {
@@ -24,10 +27,10 @@ fun DrinkingSchedule(
         Spacer(Modifier.weight(1f))
         TextButton(
             onClick = onStartHourClick
-        ) { Text("9am") }
+        ) { Text("${startHour}:00") }
         Text(stringResource(R.string.to))
         TextButton(
             onClick = onEndHourClick
-        ) { Text("10pm") }
+        ) { Text("${endHour}:00") }
     }
 }
