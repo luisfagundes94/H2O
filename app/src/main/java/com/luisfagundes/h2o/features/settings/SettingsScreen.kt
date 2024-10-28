@@ -59,7 +59,7 @@ fun SettingsRoute(viewModel: SettingsViewModel = hiltViewModel(), onBackPressed:
         uiState = uiState,
         onBackPressed = onBackPressed,
         onChangeGoalOfTheDay = viewModel::updateGoalOfTheDay,
-        onUpdateDarkThemeConfig = viewModel::updateDarkMode,
+        onToggleDarkMode = viewModel::updateDarkMode,
         onChangeStartHour = { },
         onChangeEndHour = { },
         onChangeInterval = { }
@@ -73,7 +73,7 @@ private fun SettingsScreen(
     uiState: SettingsUiState,
     onBackPressed: () -> Unit,
     onChangeGoalOfTheDay: (Float) -> Unit,
-    onUpdateDarkThemeConfig: (Boolean) -> Unit,
+    onToggleDarkMode: (Boolean) -> Unit,
     onChangeStartHour: () -> Unit,
     onChangeEndHour: () -> Unit,
     onChangeInterval: () -> Unit
@@ -103,7 +103,7 @@ private fun SettingsScreen(
                         modifier = Modifier,
                         generalSettings = uiState.generalSettings,
                         appSettings = uiState.appSettings,
-                        onUpdateDarkThemeConfig = onUpdateDarkThemeConfig,
+                        onToggleDarkMode = onToggleDarkMode,
                         onChangeGoalOfTheDay = onChangeGoalOfTheDay,
                         onChangeStartHour = onChangeStartHour,
                         onChangeEndHour = onChangeEndHour,
@@ -120,7 +120,7 @@ private fun SettingsContent(
     generalSettings: GeneralSettings,
     appSettings: AppSettings,
     onChangeGoalOfTheDay: (Float) -> Unit,
-    onUpdateDarkThemeConfig: (Boolean) -> Unit,
+    onToggleDarkMode: (Boolean) -> Unit,
     onChangeStartHour: () -> Unit,
     onChangeEndHour: () -> Unit,
     onChangeInterval: () -> Unit
@@ -159,7 +159,7 @@ private fun SettingsContent(
         )
         AppSettingsSection(
             appSettings = appSettings,
-            onUpdateDarkThemeConfig = onUpdateDarkThemeConfig
+            onToggleDarkMode = onToggleDarkMode
         )
         HorizontalDivider(
             modifier = Modifier.padding(vertical = MaterialTheme.spacing.default)
@@ -233,7 +233,7 @@ private fun GeneralSection(
 private fun AppSettingsSection(
     modifier: Modifier = Modifier,
     appSettings: AppSettings,
-    onUpdateDarkThemeConfig: (Boolean) -> Unit
+    onToggleDarkMode: (Boolean) -> Unit
 ) {
     Column(
         modifier = modifier,
@@ -251,7 +251,7 @@ private fun AppSettingsSection(
             Spacer(Modifier.weight(1f))
             Switch(
                 checked = appSettings.darkModeEnabled,
-                onCheckedChange = onUpdateDarkThemeConfig
+                onCheckedChange = onToggleDarkMode
             )
         }
     }
