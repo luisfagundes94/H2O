@@ -53,9 +53,7 @@ fun WaterRoute(
         onNavigateToHistory = onNavigateToHistory,
         onNavigateToSettings = onNavigateToSettings,
         onAddWater = viewModel::updateWaterConsumed,
-        onRemoveWater = viewModel::updateWaterConsumed,
-        onStartHourClick = {},
-        onEndHourClick = {}
+        onRemoveWater = viewModel::updateWaterConsumed
     )
 }
 
@@ -66,9 +64,7 @@ private fun WaterScreen(
     onAddWater: (water: Water) -> Unit,
     onRemoveWater: (water: Water) -> Unit,
     onNavigateToHistory: () -> Unit = {},
-    onNavigateToSettings: () -> Unit = {},
-    onStartHourClick: () -> Unit = {},
-    onEndHourClick: () -> Unit = {}
+    onNavigateToSettings: () -> Unit = {}
 ) {
     Box(
         modifier = modifier,
@@ -84,9 +80,7 @@ private fun WaterScreen(
                     onAddWater = onAddWater,
                     onRemoveWater = onRemoveWater,
                     onNavigateToHistory = onNavigateToHistory,
-                    onNavigateToSettings = onNavigateToSettings,
-                    onStartHourClick = onStartHourClick,
-                    onEndHourClick = onEndHourClick
+                    onNavigateToSettings = onNavigateToSettings
                 )
         }
     }
@@ -100,9 +94,7 @@ private fun WaterContent(
     onAddWater: (water: Water) -> Unit = {},
     onRemoveWater: (water: Water) -> Unit = {},
     onNavigateToHistory: () -> Unit = {},
-    onNavigateToSettings: () -> Unit = {},
-    onStartHourClick: () -> Unit = {},
-    onEndHourClick: () -> Unit = {}
+    onNavigateToSettings: () -> Unit = {}
 ) {
     val targetProgress = water.consumed / water.goal
     val animatedProgress by animateFloatAsState(
