@@ -20,6 +20,7 @@ import javax.inject.Singleton
 
 private const val CHANNEL_ID = "water_reminder_channel"
 private const val NOTIFICATION_ID = 1
+private const val REQUEST_CODE = 0
 
 @Singleton
 class SystemTrayNotifier @Inject constructor(
@@ -35,7 +36,7 @@ class SystemTrayNotifier @Inject constructor(
         val openAppIntent = Intent(context, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(
             context,
-            0,
+            REQUEST_CODE,
             openAppIntent,
             PendingIntent.FLAG_IMMUTABLE
         )
