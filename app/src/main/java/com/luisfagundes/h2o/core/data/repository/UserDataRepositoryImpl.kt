@@ -1,7 +1,6 @@
 package com.luisfagundes.h2o.core.data.repository
 
 import com.luisfagundes.h2o.core.data.preferences.H2oPreferencesDataSource
-import com.luisfagundes.h2o.core.domain.model.DarkThemeConfig
 import com.luisfagundes.h2o.core.domain.model.UserData
 import com.luisfagundes.h2o.core.domain.model.WaterReminder
 import com.luisfagundes.h2o.core.domain.repository.UserDataRepository
@@ -14,8 +13,8 @@ class UserDataRepositoryImpl @Inject constructor(
     override val userData: Flow<UserData>
         get() = preferencesDataSource.userData
 
-    override suspend fun setDarkModePreference(darkThemeConfig: DarkThemeConfig) {
-        preferencesDataSource.setDarkThemeConfig(darkThemeConfig)
+    override suspend fun setDarkMode(enabled: Boolean) {
+        preferencesDataSource.setDarkMode(enabled)
     }
 
     override suspend fun setDynamicColorPreference(useDynamicColor: Boolean) {

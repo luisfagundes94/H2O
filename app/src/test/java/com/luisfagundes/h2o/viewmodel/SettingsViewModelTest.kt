@@ -5,7 +5,8 @@ import com.luisfagundes.h2o.core.domain.repository.UserDataRepository
 import com.luisfagundes.h2o.core.testing.MainDispatcherRule
 import com.luisfagundes.h2o.features.settings.SettingsUiState
 import com.luisfagundes.h2o.features.settings.SettingsViewModel
-import com.luisfagundes.h2o.features.settings.mapper.toSettingsUiState
+import com.luisfagundes.h2o.model.fakeAppSettings
+import com.luisfagundes.h2o.model.fakeGeneralSettings
 import com.luisfagundes.h2o.model.fakeUserData
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -36,22 +37,26 @@ class SettingsViewModelTest {
 
     @Test
     fun `uiState updates with success when userData is available`() = runTest {
+        val expectedState = SettingsUiState.Success(
+            generalSettings = fakeGeneralSettings,
+            appSettings = fakeAppSettings
+        )
         coEvery { userDataRepository.userData } returns flowOf(fakeUserData)
 
         viewModel.getUserData()
 
         viewModel.uiState.test {
-            assert(fakeUserData.toSettingsUiState() == awaitItem())
+            assert(expectedState == awaitItem())
         }
     }
 
     @Test
-    fun `update notification toggle calls repository`() = runTest {
-        coEvery { userDataRepository.setNotificationEnabled(any()) } returns Unit
+    fun `update dark mode toggle calls repository`() = runTest {
+        coEvery { userDataRepository.setDarkMode(any()) } returns Unit
 
-        viewModel.updateNotificationToggle(true)
+        viewModel.updateDarkMode(true)
 
-        coVerify { userDataRepository.setNotificationEnabled(true) }
+        coVerify { userDataRepository.setDarkMode(true) }
     }
 
     @Test

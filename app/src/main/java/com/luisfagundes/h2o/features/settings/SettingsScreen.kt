@@ -59,7 +59,7 @@ fun SettingsRoute(viewModel: SettingsViewModel = hiltViewModel(), onBackPressed:
         uiState = uiState,
         onBackPressed = onBackPressed,
         onChangeGoalOfTheDay = viewModel::updateGoalOfTheDay,
-        onChangeNotificationToggle = viewModel::updateNotificationToggle,
+        onUpdateDarkThemeConfig = viewModel::updateDarkMode,
         onChangeStartHour = { },
         onChangeEndHour = { },
         onChangeInterval = { }
@@ -73,7 +73,7 @@ private fun SettingsScreen(
     uiState: SettingsUiState,
     onBackPressed: () -> Unit,
     onChangeGoalOfTheDay: (Float) -> Unit,
-    onChangeNotificationToggle: (Boolean) -> Unit,
+    onUpdateDarkThemeConfig: (Boolean) -> Unit,
     onChangeStartHour: () -> Unit,
     onChangeEndHour: () -> Unit,
     onChangeInterval: () -> Unit
@@ -103,7 +103,7 @@ private fun SettingsScreen(
                         modifier = Modifier,
                         generalSettings = uiState.generalSettings,
                         appSettings = uiState.appSettings,
-                        onChangeNotificationToggle = onChangeNotificationToggle,
+                        onUpdateDarkThemeConfig = onUpdateDarkThemeConfig,
                         onChangeGoalOfTheDay = onChangeGoalOfTheDay,
                         onChangeStartHour = onChangeStartHour,
                         onChangeEndHour = onChangeEndHour,
@@ -120,7 +120,7 @@ private fun SettingsContent(
     generalSettings: GeneralSettings,
     appSettings: AppSettings,
     onChangeGoalOfTheDay: (Float) -> Unit,
-    onChangeNotificationToggle: (Boolean) -> Unit,
+    onUpdateDarkThemeConfig: (Boolean) -> Unit,
     onChangeStartHour: () -> Unit,
     onChangeEndHour: () -> Unit,
     onChangeInterval: () -> Unit
@@ -159,7 +159,7 @@ private fun SettingsContent(
         )
         AppSettingsSection(
             appSettings = appSettings,
-            onNotificationCheckedChange = onChangeNotificationToggle
+            onUpdateDarkThemeConfig = onUpdateDarkThemeConfig
         )
         HorizontalDivider(
             modifier = Modifier.padding(vertical = MaterialTheme.spacing.default)
@@ -235,7 +235,7 @@ private fun GeneralSection(
 private fun AppSettingsSection(
     modifier: Modifier = Modifier,
     appSettings: AppSettings,
-    onNotificationCheckedChange: (Boolean) -> Unit
+    onUpdateDarkThemeConfig: (Boolean) -> Unit
 ) {
     Column(
         modifier = modifier,
@@ -249,11 +249,11 @@ private fun AppSettingsSection(
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(stringResource(R.string.notification))
+            Text(stringResource(R.string.enable_dark_mode))
             Spacer(Modifier.weight(1f))
             Switch(
-                checked = appSettings.notificationEnabled,
-                onCheckedChange = onNotificationCheckedChange
+                checked = appSettings.darkModeEnabled,
+                onCheckedChange = onUpdateDarkThemeConfig
             )
         }
     }

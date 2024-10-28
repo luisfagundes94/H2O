@@ -19,7 +19,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.luisfagundes.h2o.core.designsystem.theme.H2oTheme
-import com.luisfagundes.h2o.core.domain.model.DarkThemeConfig
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -54,24 +53,24 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            val darkTheme = shouldUseDarkTheme(uiState)
+            val darkThemeEnabled = shouldUseDarkTheme(uiState)
 
-            DisposableEffect(darkTheme) {
+            DisposableEffect(darkThemeEnabled) {
                 enableEdgeToEdge(
                     statusBarStyle = SystemBarStyle.auto(
                         android.graphics.Color.TRANSPARENT,
                         android.graphics.Color.TRANSPARENT
-                    ) { darkTheme },
+                    ) { darkThemeEnabled },
                     navigationBarStyle = SystemBarStyle.auto(
                         lightScrim,
                         darkScrim
-                    ) { darkTheme }
+                    ) { darkThemeEnabled }
                 )
                 onDispose {}
             }
 
             H2oTheme(
-                darkTheme = darkTheme,
+                darkTheme = darkThemeEnabled,
                 dynamicColor = false
             ) {
                 H2oApp()
@@ -85,12 +84,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun shouldUseDarkTheme(uiState: MainUiState): Boolean = when (uiState) {
     MainUiState.Loading -> isSystemInDarkTheme()
-    is MainUiState.Success ->
-        when (uiState.userData.darkThemeConfig) {
-            DarkThemeConfig.FOLLOW_SYSTEM -> isSystemInDarkTheme()
-            DarkThemeConfig.LIGHT -> false
-            DarkThemeConfig.DARK -> true
-        }
+    is MainUiState.Success -> uiState.userData.darkModeEnabled
 }
 
 private val lightScrim = android.graphics.Color.argb(0xe6, 0xFF, 0xFF, 0xFF)

@@ -13,6 +13,7 @@
     <string name="back">go back</string>
     <string name="app_settings">APP SETTINGS</string>
     <string name="notification">Notification</string>
+    <string name="enable_dark_mode">Enable Dark Mode</string>
     <string name="share_app">Share app</string>
     <string name="water_reminder">Set water reminder</string>
     <string name="empty_water_history">No water history yet!</string>

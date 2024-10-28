@@ -2,7 +2,6 @@ package com.luisfagundes.h2o.repository
 
 import com.luisfagundes.h2o.core.data.preferences.H2oPreferencesDataSource
 import com.luisfagundes.h2o.core.data.repository.UserDataRepositoryImpl
-import com.luisfagundes.h2o.core.domain.model.DarkThemeConfig
 import com.luisfagundes.h2o.core.domain.repository.UserDataRepository
 import com.luisfagundes.h2o.model.fakeUserData
 import io.mockk.coEvery
@@ -35,12 +34,11 @@ class UserDataRepositoryTest {
 
     @Test
     fun setDarkModePreference_callsPreferencesDataSource() = runTest {
-        val darkThemeConfig = DarkThemeConfig.DARK
-        coEvery { preferencesDataSource.setDarkThemeConfig(darkThemeConfig) } returns Unit
+        coEvery { preferencesDataSource.setDarkMode(true) } returns Unit
 
-        userDataRepository.setDarkModePreference(darkThemeConfig)
+        userDataRepository.setDarkMode(true)
 
-        coVerify { preferencesDataSource.setDarkThemeConfig(darkThemeConfig) }
+        coVerify { preferencesDataSource.setDarkMode(true) }
     }
 
     @Test

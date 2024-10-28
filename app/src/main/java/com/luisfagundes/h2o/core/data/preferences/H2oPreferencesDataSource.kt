@@ -3,14 +3,12 @@ package com.luisfagundes.h2o.core.data.preferences
 import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.IOException
-import com.luisfagundes.h2o.DarkThemeConfigProto
 import com.luisfagundes.h2o.UserPreferences
 import com.luisfagundes.h2o.copy
 import com.luisfagundes.h2o.core.common.utils.AppConstants.DEFAULT_END_HOUR
 import com.luisfagundes.h2o.core.common.utils.AppConstants.DEFAULT_GOAL
 import com.luisfagundes.h2o.core.common.utils.AppConstants.DEFAULT_INTERVAL
 import com.luisfagundes.h2o.core.common.utils.AppConstants.DEFAULT_START_HOUR
-import com.luisfagundes.h2o.core.domain.model.DarkThemeConfig
 import com.luisfagundes.h2o.core.domain.model.UserData
 import com.luisfagundes.h2o.core.domain.model.WaterReminder
 import javax.inject.Inject
@@ -25,11 +23,7 @@ class H2oPreferencesDataSource @Inject constructor(
 
     val userData = userPreferences.data.map { data ->
         UserData(
-            darkThemeConfig = when (data.darkThemeConfig) {
-                DarkThemeConfigProto.DARK_THEME_CONFIG_LIGHT -> DarkThemeConfig.LIGHT
-                DarkThemeConfigProto.DARK_THEME_CONFIG_DARK -> DarkThemeConfig.DARK
-                else -> DarkThemeConfig.FOLLOW_SYSTEM
-            },
+            darkModeEnabled = data.darkModeEnabled,
             useDynamicColor = data.useDynamicColor,
             notificationEnabled = data.notificationEnabled,
             goalOfTheDay = data.goalOfTheDay.takeIf { it > ZERO } ?: DEFAULT_GOAL,
@@ -43,8 +37,8 @@ class H2oPreferencesDataSource @Inject constructor(
         )
     }
 
-    suspend fun setDarkThemeConfig(darkThemeConfig: DarkThemeConfig) {
-        updatePreferences { it.copy { this.darkThemeConfig = darkThemeConfig.toProto() } }
+    suspend fun setDarkMode(enabled: Boolean) {
+        updatePreferences { it.copy { this.darkModeEnabled = enabled } }
     }
 
     suspend fun setWaterReminder(waterReminder: WaterReminder) {
@@ -76,14 +70,6 @@ class H2oPreferencesDataSource @Inject constructor(
             userPreferences.updateData(update)
         } catch (e: IOException) {
             Log.e("H2oPreferencesDataSource", "Error updating preferences", e)
-        }
-    }
-
-    private fun DarkThemeConfig.toProto(): DarkThemeConfigProto {
-        return when (this) {
-            DarkThemeConfig.FOLLOW_SYSTEM -> DarkThemeConfigProto.DARK_THEME_CONFIG_FOLLOW_SYSTEM
-            DarkThemeConfig.LIGHT -> DarkThemeConfigProto.DARK_THEME_CONFIG_LIGHT
-            DarkThemeConfig.DARK -> DarkThemeConfigProto.DARK_THEME_CONFIG_DARK
         }
     }
 }
